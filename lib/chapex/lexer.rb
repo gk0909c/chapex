@@ -1,3 +1,5 @@
+require 'strscan'
+
 module Chapex
   # Tokenize input string to consume it with racc
   class Lexer
@@ -8,15 +10,30 @@ module Chapex
     end
 
     def tokenize(str)
-      cls_def = str.match(/^(class\s[A-Z][A-Za-z0-9_]*\s{)(.*)(})/m)
-      @tokens.push([:CLASS_DEF, cls_def[1]])
-      cls_body = cls_def[2]
-      vars = cls_body.scan(/public\s.+;/)
-      vars.each { |v| @tokens.push([:VARIABLE_DEF, v]) }
+      scanner = StringScanner.new(str)
+
+      scan(scanner, :IDENT, /class\s/)
+      scan(scanner, :CLASS_NAME, /[A-Za-z0-9_]*/)
+      scan(scanner, :LEFT_CB, /\s*{/)
+
+      scan_var(scanner) until scanner.check(/^\s*}\s*/m)
     end
 
     def next
       @tokens.shift
+    end
+
+    private
+
+    def scan_var(scanner)
+      scan(scanner, :IDENT, /\s*(public\s+)?\w+\s+/)
+      scan(scanner, :VAR_NAME, /\w+/)
+      scan(scanner, :SEMI, /\s*;/)
+    end
+
+    def scan(scanner, type, regex)
+      scanner.scan(/\n/)
+      @tokens.push([type, scanner.matched]) if scanner.scan(regex)
     end
   end
 end

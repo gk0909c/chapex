@@ -6,10 +6,7 @@ module Chapex
     # check apex
     def run(str)
       parser = Chapex::Apex.new
-      result = parser.parse(str)
-      puts
-      puts "parser result is ---#{result.inspect}---"
-      puts "class def is ---#{result.inspect}---"
+      parser.parse(str)
       puts parser.checker.result
     end
   end

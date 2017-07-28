@@ -1,11 +1,13 @@
 class Chapex::Apex
 rule
   apex_class: class_def class_body
-  class_def: CLASS_DEF { @checker.class_name(val[0]) }
+  class_def: IDENT CLASS_NAME LEFT_CB {
+    @checker.class_name(val[1])
+  }
   class_body:
-            | variable
-  variable: VARIABLE_DEF { @vars << val[0] }
-          | variable VARIABLE_DEF { @vars << val[1] }
+            | var_def
+  var_def: IDENT VAR_NAME SEMI { @checker.var_name(val[1]) }
+         | var_def IDENT VAR_NAME SEMI { @checker.var_name(val[2]) }
 end
 
 ---- header

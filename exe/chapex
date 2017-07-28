@@ -2,7 +2,6 @@
 
 require 'chapex'
 
-puts 'running'
 cls = <<-EOS
 class Leo {
 public String str1;

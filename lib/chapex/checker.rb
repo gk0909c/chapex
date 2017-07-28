@@ -6,9 +6,11 @@ module Chapex
     end
 
     def class_name(str)
-      return unless str.include?('error')
+      @errors << 'class name should start with Upper case!' unless str[0] =~ /[A-Z]/
+    end
 
-      @errors << 'class name error!'
+    def var_name(str)
+      @errors << 'var name should start with Lower case!' unless str[0] =~ /[a-z]/
     end
 
     def result
