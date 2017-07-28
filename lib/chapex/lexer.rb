@@ -1,4 +1,5 @@
 module Chapex
+  # Tokenize input string to consume it with racc
   class Lexer
     attr_reader :tokens
 
