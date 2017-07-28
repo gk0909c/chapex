@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'chapex'
+
+puts 'running'
+cls = <<-EOS
+class Leo {
+public String str1;
+public String str2;
+public String str3;
+}
+EOS
+
+Chapex.run(cls)

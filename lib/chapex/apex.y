@@ -1,11 +1,11 @@
 class Chapex::Apex
 rule
   apex_class: class_def class_body
-  class_def: CLASS_DEF { puts 'meet cls-def' }
+  class_def: CLASS_DEF { puts "meet cls-def with #{val[0]}" }
   class_body:
             | variable
-  variable: VARIABLE_DEF { puts 'meet var-def' }
-          | variable VARIABLE_DEF { puts 'meet var-def recursion' }
+  variable: VARIABLE_DEF { puts "meet var-def with #{val[0]}" }
+          | variable VARIABLE_DEF { puts "meet var-def recursion with #{val[0]}" }
 end
 
 ---- inner

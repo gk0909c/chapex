@@ -1,5 +1,8 @@
 require 'chapex/version'
+require 'chapex/cli'
 
 module Chapex
-  # Your code goes here...
+  def self.run(str)
+    Cli.new.run(str)
+  end
 end
