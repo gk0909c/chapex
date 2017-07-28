@@ -1,4 +1,4 @@
-require "chapex/version"
+require 'chapex/version'
 
 module Chapex
   # Your code goes here...

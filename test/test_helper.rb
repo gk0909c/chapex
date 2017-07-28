@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-require "chapex"
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'chapex'
 
-require "minitest/autorun"
+require 'minitest/autorun'

@@ -66,13 +66,9 @@ Style/PercentLiteralDelimiters:
 Style/StringLiterals:
   Exclude:
     - 'Gemfile'
-    - 'Rakefile'
     - 'bin/console'
     - 'chapex.gemspec'
-    - 'lib/chapex.rb'
     - 'lib/chapex/version.rb'
-    - 'test/chapex_test.rb'
-    - 'test/test_helper.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
