@@ -9,3 +9,5 @@
 /tmp/
 
 vendor/bundle
+
+lib/chapex/apex.rb
