@@ -14,5 +14,9 @@ module Chapex
       vars = cls_body.scan(/public\s.+;/)
       vars.each { |v| @tokens.push([:VARIABLE_DEF, v]) }
     end
+
+    def next
+      @tokens.shift
+    end
   end
 end

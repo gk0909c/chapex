@@ -9,7 +9,8 @@ module Chapex
       result = parser.parse(str)
       puts
       puts "parser result is ---#{result.inspect}---"
-      puts parser.inspect
+      puts "class def is ---#{result.inspect}---"
+      puts parser.checker.result
     end
   end
 end

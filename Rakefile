@@ -18,7 +18,7 @@ task :generate => [:clean, PARSER_FILE]
 rule '.rb' => '.y' do |t|
   puts 'do rule for racc'
   opts = [
-    # '--superclass=Parser::Base',
+    '--superclass=Chapex::Parser',
     t.source,
     '-o', t.name
   ]
