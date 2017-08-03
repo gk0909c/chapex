@@ -10,4 +10,4 @@
 
 vendor/bundle
 
-lib/chapex/apex.rb
+lib/chapex/parser/apex.rb

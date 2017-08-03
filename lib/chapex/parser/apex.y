@@ -1,4 +1,4 @@
-class Chapex::Apex
+class Chapex::Parser::Apex
 rule
   apex_class: class_def class_body
   class_def: IDENT CLASS_NAME LEFT_CB {
@@ -11,4 +11,4 @@ rule
 end
 
 ---- header
-  require 'chapex/parser'
+  require 'chapex/parser/base'
