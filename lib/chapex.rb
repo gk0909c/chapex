@@ -1,3 +1,5 @@
+require 'ast'
+
 require 'chapex/version'
 require 'chapex/cli'
 
