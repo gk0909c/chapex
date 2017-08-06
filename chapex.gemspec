@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'racc', '= 1.4.14'
   spec.add_development_dependency 'yard', '~> 0.9.9'
+  spec.add_development_dependency 'pry', '~> 0.10.4'
 end
