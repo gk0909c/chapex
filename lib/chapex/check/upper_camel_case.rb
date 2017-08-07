@@ -2,9 +2,10 @@ module Chapex
   module Check
     # check upper camel case
     class UpperCamelCase < Base
-      MSG = 'var name should start with Lower case about %s'.freeze
-      def on_var_name(name)
-        add_warning(MSG % name) unless name[0] =~ /[a-z]/
+      MSG = 'field name should start with Lower case: %s'.freeze
+
+      def on_field(val)
+        add_warning(MSG % val[1]) unless val[1][0] =~ /[a-z]/
       end
     end
   end

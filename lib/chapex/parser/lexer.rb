@@ -27,7 +27,7 @@ module Chapex
 
     def scan_var(scanner)
       scan(scanner, :IDENT, /\s*(public\s+)?\w+\s+/)
-      scan(scanner, :VAR_NAME, /\w+/)
+      scan(scanner, :FIELD_NAME, /\w+/)
       scan(scanner, :SEMI, /\s*;/)
     end
 

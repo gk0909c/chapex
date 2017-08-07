@@ -27,13 +27,13 @@ module Chapex
       end
     end
 
-    def on_var_name(node)
+    def on_field(node)
       cops = @cops.select do |c|
-        c.respond_to?(:on_var_name)
+        c.respond_to?(:on_field)
       end
 
       cops.each do |c|
-        c.send(:on_var_name, node.children[0])
+        c.send(:on_field, node.to_a)
       end
     end
   end

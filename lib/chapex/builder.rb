@@ -5,16 +5,16 @@ module Chapex
       node(:apex_class, children)
     end
 
-    def class_name(name)
-      node(:class_name, [], :value => name)
+    def class_dec(val)
+      node(:class_dec, val)
     end
 
     def class_body(children)
       node(:class_body, children)
     end
 
-    def var_name(name)
-      node(:var_name, [name], :value => name)
+    def field(val)
+      node(:field, val)
     end
 
     private
