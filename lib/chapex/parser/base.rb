@@ -1,7 +1,6 @@
 require 'racc/parser'
-require 'chapex/lexer'
 require 'chapex/builder'
-require 'chapex/checker'
+require 'chapex/parser/lexer'
 
 module Chapex
   module Parser
@@ -9,9 +8,8 @@ module Chapex
     class Base < Racc::Parser
       attr_reader :checker
 
-      def initialize(lexer = Lexer.new, builder = Builder.new, checker = Checker.new)
+      def initialize(lexer = Lexer.new, builder = Builder.new)
         @vars = []
-        @checker = checker
         @builder = builder
         @lexer = lexer
       end

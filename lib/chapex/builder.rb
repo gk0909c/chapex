@@ -13,8 +13,8 @@ module Chapex
       node(:class_body, children)
     end
 
-    def var_name(name, children = [])
-      node(:var_name, children, :value => name)
+    def var_name(name)
+      node(:var_name, [name], :value => name)
     end
 
     private

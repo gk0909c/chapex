@@ -1,4 +1,5 @@
 require 'chapex/source'
+require 'chapex/mediator'
 
 module Chapex
   # chapex client
@@ -8,7 +9,9 @@ module Chapex
       source = Source.new(str)
       source.parse_ast
       puts source.ast
-      # puts parser.checker.result
+
+      mediator = Mediator.new(source)
+      mediator.investigate
     end
   end
 end
