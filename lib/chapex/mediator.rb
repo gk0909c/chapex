@@ -5,6 +5,7 @@ module Chapex
       @source = source
       @conf = conf
       @cops = Check::Base.all
+      @callbacks = {}
     end
 
     def investigate
@@ -15,25 +16,27 @@ module Chapex
       end
     end
 
-    def on_apex_class(node)
+    def traverse(node)
       node.children.each do |n|
         process(n)
       end
     end
+    alias on_apex_class :traverse
+    alias on_class_body :traverse
 
-    def on_class_body(node)
-      node.children.each do |n|
-        process(n)
-      end
-    end
+    # define call checks methods
+    Chapex::Builder::NODE_TYPES.each do |type|
+      handler = :"on_#{type}"
+      next if method_defined?(handler)
 
-    def on_field(node)
-      cops = @cops.select do |c|
-        c.respond_to?(:on_field)
-      end
+      define_method(handler) do |node|
+        @callbacks[handler] ||= @cops.select do |c|
+          c.respond_to?(handler)
+        end
 
-      cops.each do |c|
-        c.send(:on_field, node.to_a)
+        @callbacks[handler].each do |c|
+          c.send(handler, node.to_a)
+        end
       end
     end
   end
