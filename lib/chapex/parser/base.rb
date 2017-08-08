@@ -9,7 +9,6 @@ module Chapex
       attr_reader :checker
 
       def initialize(lexer = Lexer.new, builder = Builder.new)
-        @vars = []
         @builder = builder
         @lexer = lexer
       end
