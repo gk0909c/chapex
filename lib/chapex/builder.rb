@@ -1,20 +1,14 @@
 module Chapex
   # AST builder
   class Builder
-    def apex_class(children)
-      node(:apex_class, children)
-    end
+    NODE_TYPES = %i[
+      apex_class class_dec class_body field method
+    ].freeze
 
-    def class_dec(val)
-      node(:class_dec, val)
-    end
-
-    def class_body(children)
-      node(:class_body, children)
-    end
-
-    def field(val)
-      node(:field, val)
+    NODE_TYPES.each do |t|
+      define_method(t) do |arg|
+        node(t, arg)
+      end
     end
 
     private
