@@ -10,8 +10,8 @@ module Chapex
     end
 
     def parse_ast
-      parser = Chapex::Parser::Apex.new
-      @ast = parser.parse(@source_str)
+      parser = Chapex::Parser::Apex.new(@source_str)
+      @ast = parser.parse
     end
   end
 end

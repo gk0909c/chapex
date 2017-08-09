@@ -5,35 +5,30 @@ module Chapex
   class Lexer
     attr_reader :tokens
 
-    def initialize
+    def initialize(str)
       @tokens = []
+      @scanner = StringScanner.new(str)
     end
 
-    def tokenize(str)
-      scanner = StringScanner.new(str)
+    def tokenize
+      scan(:IDENT, /class\s/)
+      scan(:CLASS_NAME, /[A-Za-z0-9_]*/)
+      scan(:LEFT_CB, /\s*{/)
 
-      scan(scanner, :IDENT, /class\s/)
-      scan(scanner, :CLASS_NAME, /[A-Za-z0-9_]*/)
-      scan(scanner, :LEFT_CB, /\s*{/)
-
-      scan_var(scanner) until scanner.check(/^\s*}\s*/m)
-    end
-
-    def next
-      @tokens.shift
+      scan_var until @scanner.check(/^\s*}\s*/m)
     end
 
     private
 
-    def scan_var(scanner)
-      scan(scanner, :IDENT, /\s*(public\s+)?\w+\s+/)
-      scan(scanner, :FIELD_NAME, /\w+/)
-      scan(scanner, :SEMI, /\s*;/)
+    def scan_var
+      scan(:IDENT, /\s*(public\s+)?\w+\s+/)
+      scan(:FIELD_NAME, /\w+/)
+      scan(:SEMI, /\s*;/)
     end
 
-    def scan(scanner, type, regex)
-      scanner.scan(/\n/)
-      @tokens.push([type, scanner.matched]) if scanner.scan(regex)
+    def scan(type, regex)
+      @scanner.scan(/\n/)
+      @tokens.push([type, @scanner.matched]) if @scanner.scan(regex)
     end
   end
 end

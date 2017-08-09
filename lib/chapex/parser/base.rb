@@ -6,20 +6,19 @@ module Chapex
   module Parser
     # Apex Code Parser
     class Base < Racc::Parser
-      attr_reader :checker
-
-      def initialize(lexer = Lexer.new, builder = Builder.new)
+      def initialize(str, lexer = Lexer.new(str), builder = Builder.new)
         @builder = builder
         @lexer = lexer
       end
 
-      def parse(str)
-        @lexer.tokenize(str)
+      def parse
+        @lexer.tokenize
+        @tokens = @lexer.tokens
         do_parse
       end
 
       def next_token
-        @lexer.next
+        @tokens.shift
       end
     end
   end
