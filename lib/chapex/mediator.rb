@@ -16,6 +16,7 @@ module Chapex
       end
     end
 
+    # only through to children
     def traverse(node)
       node.children.each do |n|
         process(n)
