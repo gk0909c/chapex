@@ -1,10 +1,10 @@
 class Chapex::Parser::Apex
 rule
-  apex_class: class_dec class_body  RIGHT_CB {
-    result = @builder.apex_class(val[0, 2])
+  apex_class: class_dec L_CB class_body  R_CB {
+    result = @builder.apex_class([val[0], val[2]])
   }
-  class_dec: scope CLASS IDENT LEFT_CB {
-    result = @builder.class_dec(val[0, 2])
+  class_dec: scope CLASS IDENT {
+    result = @builder.class_dec(val[0, 3])
   }
   class_body:
               | fields {
