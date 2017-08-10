@@ -12,6 +12,7 @@ class LexerTest < Minitest::Test
       }
     }
     EOS
+
     expects = [
       [:CLASS, 'class'],
       [:IDENT, 'Leo'],
