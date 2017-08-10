@@ -17,7 +17,7 @@ rule
               result = val[0] << val[1]
           }
   field: scope IDENT IDENT SEMI {
-            result =  @builder.field(val[1, 2])
+            result =  @builder.field(val[0, 3])
           }
   scope:
        | SCOPE
