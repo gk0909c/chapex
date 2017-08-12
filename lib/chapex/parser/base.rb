@@ -1,6 +1,6 @@
 require 'racc/parser'
-require 'chapex/builder'
 require 'chapex/parser/lexer'
+require 'chapex/ast/builder'
 
 module Chapex
   module Parser

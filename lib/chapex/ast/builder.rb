@@ -14,7 +14,7 @@ module Chapex
     private
 
     def node(type, children, props = {})
-      AST::Node.new(type, children, props)
+      Chapex::Ast::Node.new(type, children, props)
     end
   end
 end

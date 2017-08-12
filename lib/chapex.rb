@@ -1,4 +1,4 @@
-require 'ast'
+require 'chapex/ast/node'
 
 require 'chapex/version'
 require 'chapex/cli'
