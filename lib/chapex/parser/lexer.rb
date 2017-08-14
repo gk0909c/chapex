@@ -33,7 +33,7 @@ module Chapex
         until @scanner.eos?
           EXPRESSIONS.each do |lex|
             next if skip?(lex)
-            send(lex.invoke, lex.token, @scanner.matched)
+            send(lex.invoke, lex.token)
             break
           end
         end
@@ -47,8 +47,14 @@ module Chapex
         false
       end
 
-      def emit(type, chars)
-        @tokens.push([type, chars])
+      def emit(type)
+        token_value = TokenValue.new(
+          @scanner.matched,
+          @scanner.pointer - @scanner.matched_size,
+          @scanner.pointer - 1
+        )
+        token = [type, token_value]
+        @tokens.push(token)
       end
     end
   end
