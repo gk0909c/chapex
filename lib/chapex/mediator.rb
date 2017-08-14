@@ -26,7 +26,7 @@ module Chapex
     alias on_class_body :traverse
 
     # define call checks methods
-    Chapex::Builder::NODE_TYPES.each do |type|
+    Chapex::Ast::Builder::NODE_TYPES.each do |type|
       handler = :"on_#{type}"
       next if method_defined?(handler)
 
