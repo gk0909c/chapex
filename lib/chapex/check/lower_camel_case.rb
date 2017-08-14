@@ -5,7 +5,7 @@ module Chapex
       MSG = 'field name should start with Lower case: %s'.freeze
 
       def on_field(val)
-        field_name = val[2]
+        field_name = val[2].token_value
         add_warning(MSG % field_name) unless field_name =~ /^[a-z]\w*/
       end
     end

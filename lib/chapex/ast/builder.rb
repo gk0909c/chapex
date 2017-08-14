@@ -11,6 +11,13 @@ module Chapex
       end
     end
 
+    def edge_node(type, token)
+      children = token ? [token.value] : []
+      props = token ? token.range_hash : {}
+
+      node(type, children, props)
+    end
+
     private
 
     def node(type, children, props = {})

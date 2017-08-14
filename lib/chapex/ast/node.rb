@@ -4,7 +4,11 @@ module Chapex
   module Ast
     # ast node
     class Node < AST::Node
-      attr_reader :pointer
+      attr_reader :token_start, :token_end
+
+      def token_value
+        @children[0]
+      end
     end
   end
 end
