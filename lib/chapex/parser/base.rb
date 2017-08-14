@@ -6,7 +6,7 @@ module Chapex
   module Parser
     # Apex Code Parser
     class Base < Racc::Parser
-      def initialize(source, lexer = Lexer.new(source.s_expression), builder = Builder.new)
+      def initialize(source, lexer = Lexer.new(source.string), builder = Builder.new)
         @source = source
         @builder = builder
         @lexer = lexer

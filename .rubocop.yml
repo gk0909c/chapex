@@ -4,6 +4,9 @@ Style/HashSyntax:
 Metrics/MethodLength:
   Exclude:
     - test/**/*
+Metrics/AbcSize:
+  Exclude:
+    - test/**/*
 Layout/IndentHeredoc:
   Exclude:
     - test/**/*
