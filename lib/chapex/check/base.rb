@@ -18,8 +18,9 @@ module Chapex
         @warnings = []
       end
 
-      def add_warning(warning)
-        @warnings << warning
+      def add_warning(message, node)
+        warn = "filename:#{node.row}:#{node.column}: #{message}"
+        @warnings << warn
       end
     end
   end

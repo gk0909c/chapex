@@ -17,7 +17,8 @@ module Chapex
 
       # check!
       mediator = Mediator.new(source)
-      mediator.investigate
+      result = mediator.investigate
+      puts result.inspect
     end
   end
 end

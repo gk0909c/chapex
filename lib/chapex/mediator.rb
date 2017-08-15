@@ -10,10 +10,7 @@ module Chapex
 
     def investigate
       process(@source.ast)
-
-      @cops.each do |c|
-        puts c.warnings.inspect
-      end
+      @cops.map(&:warnings).flatten
     end
 
     # only through to children
