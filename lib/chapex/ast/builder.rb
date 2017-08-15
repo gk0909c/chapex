@@ -1,7 +1,11 @@
 module Chapex
   module Ast
-    # AST builder
-    class Builder
+    # AST builder.
+    #
+    # The class include this needs to be defined position method.
+    # The position method is expected to return row and column of source.
+    # About details, see Chapex::Source#position.
+    module Builder
       NODE_TYPES = %i[
         apex_class class_dec class_body field method
       ].freeze
@@ -10,10 +14,6 @@ module Chapex
         define_method(t) do |arg|
           node(t, arg)
         end
-      end
-
-      def initialize(source)
-        @source = source
       end
 
       def edge_node(type, token)
@@ -33,7 +33,7 @@ module Chapex
         return {} unless token
 
         props = token.range_hash
-        row, column = @source.position(token.token_start)
+        row, column = position(token.token_start)
         props[:row] = row
         props[:column] = column
         props
