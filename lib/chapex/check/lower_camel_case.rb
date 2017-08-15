@@ -2,7 +2,7 @@ module Chapex
   module Check
     # check lower camel case
     class LowerCamelCase < Base
-      MSG = 'field name should be lower camelcase: %s'.freeze
+      MSG = 'field name "%s" should be lower camelcase'.freeze
 
       def on_field(nodes)
         field_name = nodes[2].value

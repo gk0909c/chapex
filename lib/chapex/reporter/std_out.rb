@@ -13,7 +13,7 @@ module Chapex
 
       def output
         @violations.each do |v|
-          message = "[#{v.severity}]#{v.filename}:#{v.row}:#{v.column} #{v.message}"
+          message = "#{v.filename}:#{v.row}:#{v.column}:[#{v.severity}] #{v.message}"
           puts message
         end
       end
