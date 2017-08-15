@@ -6,7 +6,7 @@ module Chapex
 
       def on_field(nodes)
         field_name = nodes[2].value
-        add_warning(MSG % field_name, nodes[2]) unless field_name =~ /^[a-z]\w*/
+        add_violation(MSG % field_name, nodes[2]) unless field_name =~ /^[a-z]\w*/
       end
     end
   end

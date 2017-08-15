@@ -18,7 +18,11 @@ module Chapex
       # check!
       mediator = Mediator.new(source)
       result = mediator.investigate
-      puts result.inspect
+
+      # output
+      reporter = Chapex::Reporter::StdOut.new
+      reporter.add_violations(filepath, result)
+      reporter.output
     end
   end
 end

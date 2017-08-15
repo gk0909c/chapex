@@ -12,15 +12,15 @@ module Chapex
         @subclasses
       end
 
-      attr_reader :warnings
+      attr_reader :violations
 
       def initialize
-        @warnings = []
+        @violations = []
       end
 
-      def add_warning(message, node)
-        warn = "filename:#{node.row}:#{node.column}: #{message}"
-        @warnings << warn
+      def add_violation(message, node)
+        violation = Violation.new(message, node.row, node.column)
+        @violations << violation
       end
     end
   end
