@@ -6,11 +6,10 @@ module Chapex
   module Parser
     # Apex Code Parser
     class Base < Racc::Parser
-      include Chapex::Ast::Builder
-
       def initialize(source)
         @source = source
         @lexer = Lexer.new(source.string)
+        @builder = Chapex::Ast::Builder.new(source)
       end
 
       def parse
@@ -21,12 +20,6 @@ module Chapex
 
       def next_token
         @tokens.shift
-      end
-
-      private
-
-      def position(token_start)
-        @source.position(token_start)
       end
     end
   end
