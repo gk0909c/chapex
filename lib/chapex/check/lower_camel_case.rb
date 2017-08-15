@@ -4,8 +4,8 @@ module Chapex
     class LowerCamelCase < Base
       MSG = 'field name should start with Lower case: %s'.freeze
 
-      def on_field(val)
-        field_name = val[2].token_value
+      def on_field(nodes)
+        field_name = nodes[2].value
         add_warning(MSG % field_name) unless field_name =~ /^[a-z]\w*/
       end
     end

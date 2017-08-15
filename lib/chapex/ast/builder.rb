@@ -16,6 +16,10 @@ module Chapex
         end
       end
 
+      # create edge node.
+      # @param [Symbol] node type
+      # @param [Chapex::Parser::TokenValue] lexicalyzed token value
+      # @return [Chapex::Ast::Node]
       def edge_node(type, token)
         children = token ? [token.value] : []
         props = edge_node_props(token)

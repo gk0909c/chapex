@@ -23,6 +23,8 @@ module Chapex
         @tokens.shift
       end
 
+      private
+
       def position(token_start)
         @source.position(token_start)
       end
