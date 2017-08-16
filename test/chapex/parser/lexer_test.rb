@@ -2,29 +2,25 @@ require 'test_helper'
 
 class LexerTest < Minitest::Test
   def test_tokenize
-    source = <<-EOS
-class Leo {
-  public String str1;
-  Integer str2;
-
-  public void getMethod() {
-    System.debug('test message');
-  }
-}
-    EOS
+    source = Chapex::Source.new("#{Dir.pwd}/test/fixtures/ParserTest.cls")
 
     expects = [
-      [:CLASS, 'class', 0, 4],
-      [:IDENT, 'Leo', 6, 8],
-      [:L_CB, '{', 10, 10],
-      [:SCOPE, 'public', 14, 19],
-      [:IDENT, 'String', 21, 26],
-      [:IDENT, 'str1', 28, 31],
-      [:SEMI, ';', 32, 32],
-      [:IDENT, 'Integer', 36, 42],
-      [:IDENT, 'str2', 44, 47],
-      [:SEMI, ';', 48, 48],
-      [:SCOPE, 'public', 53, 58],
+      [:SCOPE, 'public', 0, 5],
+      [:CLASS, 'class', 7, 11],
+      [:IDENT, 'Leo', 13, 15],
+      [:L_CB, '{', 17, 17],
+      [:SCOPE, 'public', 21, 26],
+      [:IDENT, 'String', 28, 33],
+      [:IDENT, 'str1', 35, 38],
+      [:SEMI, ';', 39, 39],
+      [:SCOPE, 'private'],
+      [:IDENT, 'String'],
+      [:IDENT, 'str2'],
+      [:SEMI, ';'],
+      [:IDENT, 'Integer'],
+      [:IDENT, 'int1'],
+      [:SEMI, ';'],
+      [:SCOPE, 'public'],
       [:IDENT, 'void'],
       [:IDENT, 'getMethod'],
       [:L_RB, '('],
@@ -41,11 +37,11 @@ class Leo {
       [:R_CB, '}']
     ]
 
-    lexer = Chapex::Parser::Lexer.new(source)
+    lexer = Chapex::Parser::Lexer.new(source.string)
     lexer.tokenize
     tokens = lexer.tokens
 
-    assert_equal(25, tokens.length)
+    assert_equal(30, tokens.length)
     tokens.each_with_index do |t, i|
       e = expects[i]
       check_token(t, e[0], e[1], e[2], e[3])

@@ -6,6 +6,8 @@ module Chapex
         @source = source
         @lexer = Lexer.new(source.string)
         @builder = Chapex::Ast::Builder.new(source)
+
+        @yydebug = true
       end
 
       def parse

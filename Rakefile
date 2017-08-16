@@ -26,4 +26,5 @@ rule '.rb' => '.y' do |t|
   sh 'racc', *opts
 end
 
+task :test => [:generate]
 task :default => :test

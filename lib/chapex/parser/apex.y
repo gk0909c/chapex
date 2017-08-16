@@ -7,18 +7,26 @@ rule
     result = @builder.class_dec(val[0, 3])
   }
   class_body:
-              | fields {
-              result = @builder.class_body(val[0])
-            }
-  fields: field {
-              result = [val[0]]
-            }
-          | fields field {
-              result = val[0] << val[1]
+          | blocks
+  blocks: block {
+            result = @builder.class_body(val[0])
           }
+          | blocks block {
+            result = val[0] << val[1]
+          }
+  block: field 
+        | method
   field: scope ident ident SEMI {
             result =  @builder.field(val[0, 3])
           }
+  method: scope ident ident L_RB R_RB L_CB stmts R_CB {
+            result =  @builder.method(val[0, 3])
+          }
+  stmts: stmt
+        | stmts stmt
+  stmt: receiver ident L_RB argments R_RB SEMI
+  receiver:  ident DOT
+  argments: S_LITERAL
   class: CLASS {
         result = @builder.edge_node(:class, val[0])
        }
