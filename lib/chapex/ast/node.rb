@@ -1,5 +1,3 @@
-require 'ast'
-
 module Chapex
   module Ast
     # ast node

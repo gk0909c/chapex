@@ -1,5 +1,33 @@
 #!/usr/bin/env ruby
 
+require "thor"
 require 'chapex'
 
-Chapex.run
+class Command < Thor
+  PATTERN_OPTION = [:pattern, { aliases: :p, default: 'src/classes/*.cls', desc: 'target file pattern' }]
+  CONFIG_OPTION = [:config, { aliases: :c, default: 'chapex.yml', desc: 'configuration file path' }]
+
+  desc "std", 'check apex classes and output result to standard output'
+  method_option *PATTERN_OPTION
+  method_option *CONFIG_OPTION
+  def std
+    reporter = Chapex::Reporter::StdOut.new
+    run_chapex(options, reporter)
+  end
+
+  method_option *PATTERN_OPTION
+  method_option *CONFIG_OPTION
+  method_option :output, aliases: :o, default: 'chapex_result.xml', desc: 'output xml file path'
+  desc "xml", 'check apex classes and output result to xmlfile'
+  def xml
+    puts 'now implemented'
+  end
+
+  private
+
+  def run_chapex(options, reporter)
+    Chapex::Cli.new.run(options[:pattern], reporter)
+  end
+end
+
+Command.start

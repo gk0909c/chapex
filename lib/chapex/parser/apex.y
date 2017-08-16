@@ -32,6 +32,3 @@ rule
         result = @builder.edge_node(:ident, val[0])
       }
 end
-
----- header
-  require 'chapex/parser/base'

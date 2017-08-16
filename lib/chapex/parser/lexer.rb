@@ -1,5 +1,3 @@
-require 'strscan'
-
 module Chapex
   module Parser
     # Tokenize input string to consume it with racc

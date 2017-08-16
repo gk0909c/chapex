@@ -1,9 +1,16 @@
-require 'chapex/ast/node'
+require 'strscan'
+require 'ast'
+require 'racc/parser'
 
 require 'chapex/version'
-require 'chapex/cli'
 
+require 'chapex/parser/lexer'
 require 'chapex/parser/token_value'
+require 'chapex/parser/base'
+require 'chapex/parser/apex'
+
+require 'chapex/ast/node'
+require 'chapex/ast/builder'
 
 require 'chapex/check/base'
 require 'chapex/check/violation'
@@ -11,8 +18,6 @@ require 'chapex/check/lower_camel_case'
 
 require 'chapex/reporter/std_out'
 
-module Chapex
-  def self.run
-    Cli.new.run
-  end
-end
+require 'chapex/cli'
+require 'chapex/source'
+require 'chapex/mediator'

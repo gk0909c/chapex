@@ -1,7 +1,3 @@
-require 'racc/parser'
-require 'chapex/parser/lexer'
-require 'chapex/ast/builder'
-
 module Chapex
   module Parser
     # Apex Code Parser

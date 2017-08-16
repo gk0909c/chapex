@@ -1,5 +1,3 @@
-require 'chapex/parser/apex'
-
 module Chapex
   # source expression in string, ast, line array.
   # string expression's newline character will be transformed to line feed.

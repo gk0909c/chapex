@@ -1,14 +1,9 @@
-require 'chapex/source'
-require 'chapex/mediator'
-
 module Chapex
   # chapex client
   class Cli
     # check apex
-    def run
-      file_pattern = 'test/fixtures/**/*.cls'
-      files = Dir.glob("#{Dir.pwd}/#{file_pattern}")
-      reporter = Chapex::Reporter::StdOut.new
+    def run(path_pattern, reporter)
+      files = Dir.glob("#{Dir.pwd}/#{path_pattern}")
 
       files.each do |f|
         result = investigate_file(f)
