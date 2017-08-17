@@ -12,6 +12,10 @@ module Chapex
       def [](idx)
         @children[idx]
       end
+
+      def location
+        Chapex::SourceLocation.new(row, column)
+      end
     end
   end
 end

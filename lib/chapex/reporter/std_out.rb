@@ -13,9 +13,21 @@ module Chapex
 
       def output
         @violations.each do |v|
-          message = "#{v.filename}:#{v.row}:#{v.column}:[#{v.severity}] #{v.message}"
+          message = format('%s:%d:%d:[%s] %s', *violation_to_message_args(v))
           puts message
         end
+      end
+
+      private
+
+      def violation_to_message_args(v)
+        [
+          v.filename,
+          v.row + 1,
+          v.column + 1,
+          v.severity,
+          v.message
+        ]
       end
     end
   end

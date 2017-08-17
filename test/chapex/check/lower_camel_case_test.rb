@@ -19,8 +19,7 @@ class LowerCamelCaseTest < Minitest::Test
 
   def test_on_field_when_invalid
     @target.expect(:value, 'InvalidName')
-    @target.expect(:row, 1)
-    @target.expect(:column, 2)
+    @target.expect(:location, Chapex::SourceLocation.new(1, 2))
 
     @checker.on_field(@node)
 

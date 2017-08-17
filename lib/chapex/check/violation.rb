@@ -5,10 +5,10 @@ module Chapex
       attr_reader :message, :row, :column, :severity
       attr_accessor :filename
 
-      def initialize(message, row, column, severity = :warn)
+      def initialize(message, location, severity = :warn)
         @message = message
-        @row = row
-        @column = column
+        @row = location.row
+        @column = location.column
         @severity = severity
       end
     end

@@ -18,9 +18,18 @@ module Chapex
         @violations = []
       end
 
-      def add_violation(message, node)
-        violation = Violation.new(message, node.row, node.column)
+      def add_violation(location, *message_args)
+        message = build_message(message_args)
+        violation = Violation.new(message, location)
         @violations << violation
+      end
+
+      def build_message(args)
+        if args.length.zero?
+          self.class::MSG
+        else
+          self.class::MSG % args
+        end
       end
     end
   end

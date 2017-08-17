@@ -7,7 +7,7 @@ module Chapex
       def on_field(node)
         check_node = node[2]
         field_name = check_node.value
-        add_violation(MSG % field_name, check_node) unless field_name =~ /^[a-z]\w*/
+        add_violation(check_node.location, field_name) unless field_name =~ /^[a-z]\w*/
       end
     end
   end

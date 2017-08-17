@@ -4,13 +4,24 @@ module Chapex
     def initialize(source, conf = {})
       @source = source
       @conf = conf
-      @cops = Check::Base.all
+      @checks = Check::Base.all
       @callbacks = {}
     end
 
     def investigate
+      check_with_ast
+      check_with_lines
+      @checks.map(&:violations).flatten
+    end
+
+    def check_with_ast
       process(@source.ast)
-      @cops.map(&:violations).flatten
+    end
+
+    def check_with_lines
+      @checks.each do |c|
+        c.investigate(@source.lines) if c.respond_to?(:investigate)
+      end
     end
 
     # only through to children
@@ -28,7 +39,7 @@ module Chapex
       next if method_defined?(handler)
 
       define_method(handler) do |node|
-        @callbacks[handler] ||= @cops.select do |c|
+        @callbacks[handler] ||= @checks.select do |c|
           c.respond_to?(handler)
         end
 

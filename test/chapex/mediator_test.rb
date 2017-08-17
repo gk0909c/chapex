@@ -3,18 +3,18 @@ require 'test_helper'
 class MediatorTest < MiniTest::Test
   def test_investigate
     source = mocked_source
-    cop1 = MiniTest::Mock.new.expect(:on_field, nil, [@field])
-    cop2 = MiniTest::Mock.new.expect(:on_method, nil, [@method])
-    cops = [cop1, cop2]
+    check1 = MiniTest::Mock.new.expect(:on_field, nil, [@field])
+    check2 = MiniTest::Mock.new.expect(:on_method, nil, [@method])
+    checks = [check1, check2]
 
-    cops.each { |c| c.expect(:violations, []) }
+    checks.each { |c| c.expect(:violations, []) }
 
-    Chapex::Check::Base.stub(:all, cops) do
+    Chapex::Check::Base.stub(:all, checks) do
       mediator = Chapex::Mediator.new(source)
       mediator.investigate
     end
 
-    cops.each(&:verify)
+    checks.each(&:verify)
   end
 
   private
