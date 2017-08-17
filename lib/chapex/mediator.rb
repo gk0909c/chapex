@@ -33,7 +33,7 @@ module Chapex
         end
 
         @callbacks[handler].each do |c|
-          c.send(handler, node.to_a)
+          c.send(handler, node)
         end
       end
     end

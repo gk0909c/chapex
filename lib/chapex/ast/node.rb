@@ -7,6 +7,11 @@ module Chapex
       def value
         @children[0]
       end
+
+      # get specified child node
+      def [](idx)
+        @children[idx]
+      end
     end
   end
 end
