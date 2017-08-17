@@ -37,10 +37,6 @@ module Chapex
 
     private
 
-    def string_of(filepath)
-      File.read(filepath).gsub(/\r\n/, "\n")
-    end
-
     def make_lines
       line_start = 0
 
