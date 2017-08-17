@@ -30,7 +30,7 @@ rule
           result = val[0] << val[1]
         }
   stmt: rhs {
-          result = @builder.stmt(val[0])
+          result = @builder.stmt([val[0]])
         }
   rhs: call_target L_RB argments R_RB SEMI {
                   result = @builder.join_as_node(:rhs, val[0], val[2])
