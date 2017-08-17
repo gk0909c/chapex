@@ -28,6 +28,13 @@ module Chapex
       [row, column]
     end
 
+    # slice off source string
+    # @param r [range] slice range
+    # @return [String] sliced string
+    def [](r)
+      string[r]
+    end
+
     private
 
     def string_of(filepath)

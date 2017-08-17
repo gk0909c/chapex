@@ -25,6 +25,10 @@ class SourceTest < Minitest::Test
     assert_position(100, -1, -1)
   end
 
+  def test_slice_with_range
+    assert_equal('las', source[1..3])
+  end
+
   private
 
   attr_reader :source
