@@ -9,31 +9,31 @@ class ParserTest < Minitest::Test
 
     # check class_dec
     expected = <<-HERE
-(apex-class
+(program
   (class-dec
     (scope "public")
     (class "class")
-    (ident "Leo"))
-  (class-body
-    (field
-      (scope "public")
-      (ident "String")
-      (ident "str1"))
-    (field
-      (scope "private")
-      (ident "String")
-      (ident "str2"))
-    (field
-      (scope)
-      (ident "Integer")
-      (ident "int1"))
-    (method
-      (scope "public")
-      (ident "void")
-      (ident "getMethod")
-      (method-body
-        (stmt
-          (rhs "System.debug('test message'"))))))
+    (ident "Leo")
+    (class-body
+      (field
+        (scope "public")
+        (ident "String")
+        (ident "str1"))
+      (field
+        (scope "private")
+        (ident "String")
+        (ident "str2"))
+      (field
+        (scope)
+        (ident "Integer")
+        (ident "int1"))
+      (method
+        (scope "public")
+        (ident "void")
+        (ident "getMethod")
+        (method-body
+          (stmt
+            (rhs "System.debug('test message'")))))))
     HERE
     # remove last line feed
     expected.chomp!

@@ -3,13 +3,13 @@ module Chapex
     # AST builder
     class Builder
       NODE_TYPES = %i[
-        apex_class class_dec class_body field
+        program class_dec class_body field
         method method_body stmt
       ].freeze
 
       NODE_TYPES.each do |t|
-        define_method(t) do |arg|
-          node(t, arg)
+        define_method(t) do |children|
+          node(t, children)
         end
       end
 

@@ -1,10 +1,11 @@
 class Chapex::Parser::Apex
 rule
-  apex_class: class_dec L_CB class_body  R_CB {
-    result = @builder.apex_class([val[0], val[2]])
+  program: class_dec {
+    result = @builder.program([val[0]])
   }
-  class_dec: scope class ident {
-    result = @builder.class_dec(val[0, 3])
+  class_dec: scope class ident L_CB class_body  R_CB {
+    children = val[0, 3] << val[4]
+    result = @builder.class_dec(children)
   }
   class_body:
           | members
