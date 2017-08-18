@@ -4,7 +4,7 @@ class UpperCamelCaseTest < Minitest::Test
   def setup
     @node = MiniTest::Mock.new
     @target = MiniTest::Mock.new
-    @checker = Chapex::Check::UpperCamelCase.new
+    @checker = Chapex::Check::Naming::UpperCamelCase.new
 
     @node.expect(:[], @target, [2])
   end

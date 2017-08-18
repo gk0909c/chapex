@@ -14,8 +14,10 @@ require 'chapex/ast/builder'
 
 require 'chapex/check/base'
 require 'chapex/check/violation'
-require 'chapex/check/lower_camel_case'
-require 'chapex/check/upper_camel_case'
+
+require 'chapex/check/naming/lower_camel_case'
+require 'chapex/check/naming/upper_camel_case'
+
 require 'chapex/check/no_tab_character'
 require 'chapex/check/indentation_width'
 
