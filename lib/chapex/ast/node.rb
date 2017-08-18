@@ -27,9 +27,29 @@ module Chapex
       # get first child, the first child need to have row and column.
       def first_child
         @mutable_props[:first_child] ||= @children.find do |c|
-          c.instance_of?(self.class) && c.row && c.column
+          c.instance_of?(self.class) && c.located?
         end
         @mutable_props[:first_child]
+      end
+
+      def parent
+        @mutable_props[:parent]
+      end
+
+      def parent=(node)
+        @mutable_props[:parent] = node
+      end
+
+      def located_parent
+        p = @mutable_props[:parent]
+        return p if p.located?
+        p.located_parent
+      end
+
+      protected
+
+      def located?
+        @row && @column
       end
     end
   end

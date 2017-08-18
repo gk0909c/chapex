@@ -55,4 +55,14 @@ class BuilderTest < Minitest::Test
     n1 = Chapex::Ast::Node.new(:test, ['n1'], token_start: 2, token_end: 2)
     assert_raises { @builder.join_as_node(nil, n1, t1) }
   end
+
+  def test_add_parent_to_children
+    c1 = Chapex::Ast::Node.new(:child)
+    c2 = Chapex::Ast::Node.new(:child)
+    n = @builder.field([c1, c2])
+
+    assert_equal(n, c1.parent)
+    assert_equal(n, c2.parent)
+    assert_nil(n.parent)
+  end
 end
