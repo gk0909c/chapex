@@ -30,7 +30,7 @@ module Chapex
         process(n)
       end
     end
-    alias on_apex_class :traverse
+    alias on_program :traverse
     alias on_class_body :traverse
 
     # define call checks methods
@@ -46,6 +46,8 @@ module Chapex
         @callbacks[handler].each do |c|
           c.send(handler, node)
         end
+
+        traverse(node)
       end
     end
   end

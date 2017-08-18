@@ -16,6 +16,7 @@ require 'chapex/check/base'
 require 'chapex/check/violation'
 require 'chapex/check/lower_camel_case'
 require 'chapex/check/no_tab_character'
+require 'chapex/check/indentation_width'
 
 require 'chapex/reporter/std_out'
 

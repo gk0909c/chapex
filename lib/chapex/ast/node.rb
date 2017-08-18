@@ -32,6 +32,10 @@ module Chapex
         @mutable_props[:first_child]
       end
 
+      def first_child_location
+        first_child.location
+      end
+
       def parent
         @mutable_props[:parent]
       end
@@ -40,10 +44,8 @@ module Chapex
         @mutable_props[:parent] = node
       end
 
-      def located_parent
-        p = @mutable_props[:parent]
-        return p if p.located?
-        p.located_parent
+      def grand_parent_location
+        parent.parent.first_child.location
       end
 
       protected

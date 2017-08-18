@@ -30,6 +30,6 @@ class MediatorTest < MiniTest::Test
     @field = Chapex::Ast::Node.new(:field)
     class_body = Chapex::Ast::Node.new(:class_body, [@field, @method])
     class_dec = Chapex::Ast::Node.new(:class_dec)
-    Chapex::Ast::Node.new(:apex_class, [class_dec, class_body])
+    Chapex::Ast::Node.new(:program, [class_dec, class_body])
   end
 end

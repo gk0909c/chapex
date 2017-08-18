@@ -16,30 +16,4 @@ class NodeTest < Minitest::Test
 
     assert_equal(class_dec, node.first_child)
   end
-
-  def test_located_parent_from_grandchild
-    grandchild = test_cls.new(:grandchild)
-    child = test_cls.new(:child)
-    parent = test_cls.new(:parent, [], row: 1, column: 2)
-
-    grandchild.parent = child
-    child.parent = parent
-
-    assert_equal(parent, grandchild.located_parent)
-  end
-
-  def test_located_parent_from_child
-    child = test_cls.new(:child)
-    parent = test_cls.new(:parent, [], row: 1, column: 2)
-
-    child.parent = parent
-
-    assert_equal(parent, child.located_parent)
-  end
-
-  private
-
-  def test_cls
-    Chapex::Ast::Node
-  end
 end
