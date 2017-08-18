@@ -6,6 +6,10 @@ module Chapex
 
       def initialize(type, children = [], props = {})
         @mutable_props = {}
+        children.each do |c|
+          c.parent = self if c.is_a?(self.class)
+        end
+
         super
       end
 

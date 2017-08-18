@@ -9,9 +9,7 @@ module Chapex
 
       NODE_TYPES.each do |t|
         define_method(t) do |children|
-          n = node(t, children)
-          children.each { |c| c.parent = n }
-          n
+          node(t, children)
         end
       end
 
