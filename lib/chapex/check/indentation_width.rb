@@ -2,7 +2,7 @@ module Chapex
   module Check
     # check indentation width
     class IndentationWidth < Base
-      W = 2
+      W = 4
       MSG = 'expected indentation is %d, but %d'.freeze
 
       # compare with parent parent node whose position is first child's position
@@ -17,7 +17,7 @@ module Chapex
 
         add_violation(
           own_loc,
-          base_loc.column + 2,
+          base_loc.column + W,
           own_loc.column
         )
       end

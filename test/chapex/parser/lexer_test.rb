@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LexerTest < Minitest::Test
   def test_tokenize
-    source = Chapex::Source.new("#{Dir.pwd}/test/fixtures/ParserTest.cls")
+    source = Chapex::Source.new("#{Dir.pwd}/test/fixtures/Valid.cls")
 
     expects = [
       [:SCOPE, 'public', 0, 5],

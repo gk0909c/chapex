@@ -6,10 +6,10 @@ class IndentationWidthTest < MiniTest::Test
   end
 
   def test_on_stmt_invalid
-    rhs = node(:rhs, [], row: 3, column: 3)
+    rhs = node(:rhs, [], row: 3, column: 5)
     stmt = node(:stmt, [rhs])
     method_body = node(:method_body, [stmt])
-    scope = node(:scope, ['public'], row: 2, column: 3)
+    scope = node(:scope, ['public'], row: 2, column: 5)
     method = node(:method, [scope, method_body])
 
     stmt.parent = method_body
@@ -19,14 +19,14 @@ class IndentationWidthTest < MiniTest::Test
     v = @checker.violations
 
     assert_equal(1, v.size)
-    assert_equal('expected indentation is 5, but 3', v[0].message)
+    assert_equal('expected indentation is 9, but 5', v[0].message)
   end
 
   def test_on_stmt_valid
-    rhs = node(:rhs, [], row: 3, column: 5)
+    rhs = node(:rhs, [], row: 3, column: 9)
     stmt = node(:stmt, [rhs])
     method_body = node(:method_body, [stmt])
-    scope = node(:scope, ['public'], row: 2, column: 3)
+    scope = node(:scope, ['public'], row: 2, column: 5)
     method = node(:method, [scope, method_body])
 
     stmt.parent = method_body
