@@ -1,5 +1,5 @@
 public class Leo {
-    public String str1;
+    public final static String str1;
     private String str2;
     Integer int1;
     private Integer int2 = 3;

@@ -20,6 +20,8 @@ class ParserTest < Minitest::Test
     (class-body
       (field
         (scope "public")
+        (final "final")
+        (static "static")
         (ident "String")
         (name "str1"))
       (field

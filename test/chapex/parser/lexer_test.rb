@@ -10,9 +10,11 @@ class LexerTest < Minitest::Test
       [:IDENT, 'Leo', 13, 15],
       [:L_CB, '{', 17, 17],
       [:SCOPE, 'public', 23, 28],
-      [:IDENT, 'String', 30, 35],
-      [:IDENT, 'str1', 37, 40],
-      [:SEMI, ';', 41, 41],
+      [:FINAL, 'final', 30, 34],
+      [:STATIC, 'static', 36, 41],
+      [:IDENT, 'String', 43, 48],
+      [:IDENT, 'str1', 50, 53],
+      [:SEMI, ';', 54, 54],
       [:SCOPE, 'private'],
       [:IDENT, 'String'],
       [:IDENT, 'str2'],
@@ -47,7 +49,7 @@ class LexerTest < Minitest::Test
     lexer.tokenize
     tokens = lexer.tokens
 
-    assert_equal(36, tokens.length)
+    assert_equal(38, tokens.length)
     tokens.each_with_index do |t, i|
       e = expects[i]
       check_token(t, e[0], e[1], e[2], e[3])

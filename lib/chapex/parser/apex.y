@@ -29,7 +29,7 @@ rule
           }
   field_dec: scope member_modifier ident ident {
             name_node = val[3].updated(:name)
-            result = [val[0]] << val[2] << name_node
+            result = [val[0]].concat(val[1]) << val[2] << name_node
           }
   field_assign: {
                   result = nil
@@ -38,16 +38,36 @@ rule
                 result = @builder.join_as_node(:assign, *val)
               }
   method: scope member_modifier ident ident L_RB R_RB L_CB method_body R_CB {
-            children = [val[0]].concat(val[2, 2]) << val[7]
+            children = [val[0]].concat(val[1]).concat(val[2, 2]) << val[7]
             result =  @builder.method(children)
           }
-  member_modifier: 
-                  | FINAL
-                  | OVERRIDE
-                  | STATIC
-                  | FINAL STATIC
-                  | STATIC FINAL
-                  | OVERRIDE STATIC
+  member_modifier: {
+                    result = []
+                  }
+                  | FINAL {
+                    result = [@builder.terminal_node(:final, val[0])]
+                  }
+                  | OVERRIDE {
+                    result = [@builder.terminal_node(:override, val[0])]
+                  }
+                  | STATIC {
+                    result = [@builder.terminal_node(:static, val[0])]
+                  }
+                  | FINAL STATIC {
+                    final = @builder.terminal_node(:final, val[0])
+                    static = @builder.terminal_node(:static, val[1])
+                    result = [final, static]
+                  }
+                  | STATIC FINAL {
+                    static = @builder.terminal_node(:static, val[0])
+                    final = @builder.terminal_node(:final, val[1])
+                    result = [static, final]
+                  }
+                  | OVERRIDE STATIC {
+                    override = @builder.terminal_node(:override, val[0])
+                    static = @builder.terminal_node(:static, val[1])
+                    result = [override, static]
+                  }
   method_body: stmt {
           result = @builder.method_body([val[0]])
           }
