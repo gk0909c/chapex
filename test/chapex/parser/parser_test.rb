@@ -21,19 +21,19 @@ class ParserTest < Minitest::Test
       (field
         (scope "public")
         (ident "String")
-        (ident "str1"))
+        (name "str1"))
       (field
         (scope "private")
         (ident "String")
-        (ident "str2"))
+        (name "str2"))
       (field
         (scope)
         (ident "Integer")
-        (ident "int1"))
+        (name "int1"))
       (field
         (scope "private")
         (ident "Integer")
-        (ident "int2")
+        (name "int2")
         (assign "= 3"))
       (method
         (scope "public")

@@ -28,7 +28,8 @@ rule
             result =  @builder.field(children)
           }
   field_dec: scope member_modifier ident ident {
-            result = [val[0]].concat(val[2, 2])
+            name_node = val[3].updated(:name)
+            result = [val[0]] << val[2] << name_node
           }
   field_assign: {
                   result = nil
