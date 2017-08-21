@@ -3,10 +3,14 @@ rule
   program: class_dec {
     result = @builder.program([val[0]])
   }
-  class_dec: scope class ident L_CB class_body  R_CB {
-    children = val[0, 3] << val[4]
+  class_dec: scope virtual abstract sharing class ident L_CB class_body  implemation inherit R_CB {
+    children = val[0, 6] << val[7]
     result = @builder.class_dec(children)
   }
+  implemation:
+            | implements ident
+  inherit:
+            | extends ident
   class_body:
           | members
   members: member {
@@ -62,4 +66,28 @@ rule
   ident: IDENT {
         result = @builder.terminal_node(:ident, val[0])
       }
+  virtual: {
+        result = @builder.terminal_node(:virtual, nil)
+       }
+       | VIRTUAL {
+        result = @builder.terminal_node(:virtual, val[0])
+       }
+  abstract: {
+        result = @builder.terminal_node(:abstract, nil)
+       }
+       | ABSTRACT {
+        result = @builder.terminal_node(:abstract, val[0])
+       }
+  sharing: {
+        result = @builder.terminal_node(:sharing, nil)
+       }
+       | SHARING {
+        result = @builder.terminal_node(:sharing, val[0])
+       }
+  implements: IMPLEMENTS {
+        result = @builder.terminal_node(:implements, val[0])
+       }
+  extends: EXTENDS {
+        result = @builder.terminal_node(:extends, val[0])
+       }
 end

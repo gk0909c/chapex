@@ -48,6 +48,18 @@ class LexerTest < Minitest::Test
     end
   end
 
+  def test_keyword_token
+    source = 'public virtual class Klass'
+    lexer = Chapex::Parser::Lexer.new(source)
+    lexer.tokenize
+    tokens = lexer.tokens
+
+    assert_equal(:SCOPE, tokens[0][0])
+    assert_equal(:VIRTUAL, tokens[1][0])
+    assert_equal(:CLASS, tokens[2][0])
+    assert_equal(:IDENT, tokens[3][0])
+  end
+
   private
 
   def check_token(token, type, value, t_s, t_e)

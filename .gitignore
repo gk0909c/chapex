@@ -11,3 +11,4 @@
 vendor/bundle
 
 lib/chapex/parser/apex.rb
+lib/chapex/parser/apex.output

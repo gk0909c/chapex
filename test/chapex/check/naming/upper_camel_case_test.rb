@@ -6,7 +6,7 @@ class UpperCamelCaseTest < Minitest::Test
     @target = MiniTest::Mock.new
     @checker = Chapex::Check::Naming::UpperCamelCase.new
 
-    @node.expect(:[], @target, [2])
+    @node.expect(:[], @target, [5])
   end
 
   def test_on_field_when_valid

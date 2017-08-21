@@ -6,7 +6,7 @@ module Chapex
         MSG = 'class name "%s" should be upper camelcase'.freeze
 
         def on_class_dec(node)
-          check_node = node[2]
+          check_node = node[5]
           class_name = check_node.value
           return if class_name =~ /^[A-Z]\w*/
 

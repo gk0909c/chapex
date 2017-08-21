@@ -23,11 +23,19 @@ module Chapex
       def violation_to_message_args(v)
         [
           v.filename,
-          v.row + 1,
-          v.column + 1,
+          violation_row(v),
+          violation_column(v),
           v.severity,
           v.message
         ]
+      end
+
+      def violation_row(v)
+        v.row.nil? ? -99 : v.row + 1
+      end
+
+      def violation_column(v)
+        v.column.nil? ? -99 : v.column + 1
       end
     end
   end

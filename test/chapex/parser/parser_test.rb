@@ -12,6 +12,9 @@ class ParserTest < Minitest::Test
 (program
   (class-dec
     (scope "public")
+    (virtual)
+    (abstract)
+    (sharing)
     (class "class")
     (ident "Leo")
     (class-body
