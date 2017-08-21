@@ -19,8 +19,10 @@ module Chapex
         Lexicality.new(/\(/, :L_RB, :emit),
         Lexicality.new(/\)/, :R_RB, :emit),
         Lexicality.new(/\./, :DOT, :emit),
+        Lexicality.new(/=/, :EQUAL, :emit),
         Lexicality.new(/;/, :SEMI, :emit),
         Lexicality.new(/'.*?'/, :S_LITERAL, :emit),
+        Lexicality.new(/[0-9]+/, :N_LITERAL, :emit),
         Lexicality.new(/\b\w+\b/, :IDENT, :emit),
         Lexicality.new(/\s+?/)
       ].freeze

@@ -23,10 +23,19 @@ rule
           }
   member: field 
         | method
-  field: scope member_modifier ident ident SEMI {
-            children = [val[0]].concat(val[2, 2])
+  field: field_dec field_assign SEMI {
+            children = val[1] ? val[0] << val[1] : val[0]
             result =  @builder.field(children)
           }
+  field_dec: scope member_modifier ident ident {
+            result = [val[0]].concat(val[2, 2])
+          }
+  field_assign: {
+                  result = nil
+              }
+              | EQUAL assigned_val {
+                result = @builder.join_as_node(:assign, *val)
+              }
   method: scope member_modifier ident ident L_RB R_RB L_CB method_body R_CB {
             children = [val[0]].concat(val[2, 2]) << val[7]
             result =  @builder.method(children)
@@ -64,6 +73,8 @@ rule
               result = @builder.join_as_node(:dot_ident, *val)
             }
   argments: S_LITERAL
+  assigned_val: S_LITERAL
+            | N_LITERAL
   class: CLASS {
         result = @builder.terminal_node(:class, val[0])
        }

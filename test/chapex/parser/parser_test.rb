@@ -30,6 +30,11 @@ class ParserTest < Minitest::Test
         (scope)
         (ident "Integer")
         (ident "int1"))
+      (field
+        (scope "private")
+        (ident "Integer")
+        (ident "int2")
+        (assign "= 3"))
       (method
         (scope "public")
         (ident "void")

@@ -20,6 +20,12 @@ class LexerTest < Minitest::Test
       [:IDENT, 'Integer'],
       [:IDENT, 'int1'],
       [:SEMI, ';'],
+      [:SCOPE, 'private'],
+      [:IDENT, 'Integer'],
+      [:IDENT, 'int2'],
+      [:EQUAL, '='],
+      [:N_LITERAL, '3'],
+      [:SEMI, ';'],
       [:SCOPE, 'public'],
       [:IDENT, 'void'],
       [:IDENT, 'getMethod'],
@@ -41,7 +47,7 @@ class LexerTest < Minitest::Test
     lexer.tokenize
     tokens = lexer.tokens
 
-    assert_equal(30, tokens.length)
+    assert_equal(36, tokens.length)
     tokens.each_with_index do |t, i|
       e = expects[i]
       check_token(t, e[0], e[1], e[2], e[3])
