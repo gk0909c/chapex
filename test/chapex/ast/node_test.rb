@@ -16,4 +16,20 @@ class NodeTest < Minitest::Test
 
     assert_equal(class_dec, node.first_child)
   end
+
+  def test_find_when_exists
+    class_body = Chapex::Ast::Node.new(:class_body, [], row: 1, column: 3)
+    class_dec = Chapex::Ast::Node.new(:class_dec, [], row: 1, column: 1)
+    node = Chapex::Ast::Node.new(:program, ['abc', class_dec, class_body])
+
+    assert_equal(class_dec, node.find(:class_dec))
+  end
+
+  def test_find_when_not_exists
+    class_body = Chapex::Ast::Node.new(:class_body, [], row: 1, column: 3)
+    class_dec = Chapex::Ast::Node.new(:class_dec, [], row: 1, column: 1)
+    node = Chapex::Ast::Node.new(:program, ['abc', class_dec, class_body])
+
+    assert_nil(node.find(:class_field))
+  end
 end

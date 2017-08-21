@@ -6,7 +6,7 @@ module Chapex
         MSG = 'field name "%s" should be lower camelcase'.freeze
 
         def on_field(node)
-          check_node = node[2]
+          check_node = node.find(:name)
           field_name = check_node.value
           return if field_name =~ /^[a-z]\w*/
 
