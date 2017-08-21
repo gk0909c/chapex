@@ -3,14 +3,16 @@ rule
   program: class_dec {
     result = @builder.program([val[0]])
   }
-  class_dec: scope virtual abstract sharing class ident L_CB class_body  implemation inherit R_CB {
+  class_dec: scope virtual abstract sharing class ident L_CB class_body implemation inherit R_CB {
     children = val[0, 6] << val[7]
     result = @builder.class_dec(children)
   }
   implemation:
-            | implements ident
+            | IMPLEMENTS ident {
+              result = @builder.terminal_node(:implements, val[0])
+            }
   inherit:
-            | extends ident
+            | EXTENDS ident
   class_body:
           | members
   members: member {
@@ -21,13 +23,21 @@ rule
           }
   member: field 
         | method
-  field: scope ident ident SEMI {
-            result =  @builder.field(val[0, 3])
+  field: scope member_modifier ident ident SEMI {
+            children = [val[0]].concat(val[2, 2])
+            result =  @builder.field(children)
           }
-  method: scope ident ident L_RB R_RB L_CB method_body R_CB {
-            children = val[0, 3].concat([val[6]])
+  method: scope member_modifier ident ident L_RB R_RB L_CB method_body R_CB {
+            children = [val[0]].concat(val[2, 2]) << val[7]
             result =  @builder.method(children)
           }
+  member_modifier: 
+                  | FINAL
+                  | OVERRIDE
+                  | STATIC
+                  | FINAL STATIC
+                  | STATIC FINAL
+                  | OVERRIDE STATIC
   method_body: stmt {
           result = @builder.method_body([val[0]])
           }
@@ -83,11 +93,5 @@ rule
        }
        | SHARING {
         result = @builder.terminal_node(:sharing, val[0])
-       }
-  implements: IMPLEMENTS {
-        result = @builder.terminal_node(:implements, val[0])
-       }
-  extends: EXTENDS {
-        result = @builder.terminal_node(:extends, val[0])
        }
 end

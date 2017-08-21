@@ -7,7 +7,7 @@ module Chapex
       attr_reader :tokens
 
       SCOPE = /\b(public|protected|private|global)\b/
-      KEYWORD = /\b(virtual|abstract|class|implements|extends)\b/
+      KEYWORD = /\b(virtual|abstract|class|implements|extends|final|override|static)\b/
       SHARING = /\b(with|without)\b\s\bsharing\b/
 
       EXPRESSIONS = [
