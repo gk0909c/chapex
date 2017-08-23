@@ -4,7 +4,7 @@ module Chapex
     class Builder
       NODE_TYPES = %i[
         program class_dec class_body field
-        method method_body stmt
+        method method_body stmt variable
       ].freeze
 
       NODE_TYPES.each do |t|

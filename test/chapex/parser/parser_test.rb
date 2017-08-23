@@ -23,7 +23,7 @@ class ParserTest < Minitest::Test
         (final "final")
         (static "static")
         (ident "String")
-        (name "str1"))
+        (name "CO_V"))
       (field
         (scope "private")
         (ident "String")
@@ -43,7 +43,13 @@ class ParserTest < Minitest::Test
         (ident "getMethod")
         (method-body
           (stmt
-            (rhs "System.debug('test message'")))))))
+            (variable
+              (ident "String")
+              (name "mes"))
+            (equal "=")
+            (rhs "'abc'"))
+          (stmt
+            (rhs "System.debug(mes)")))))))
     HERE
     # remove last line feed
     expected.chomp!

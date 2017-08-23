@@ -74,12 +74,23 @@ rule
         | method_body stmt {
           result = val[0] << val[1]
         }
-  stmt: rhs {
+  stmt: rhs SEMI {
           result = @builder.stmt([val[0]])
         }
-  rhs: call_target L_RB argments R_RB SEMI {
-                  result = @builder.join_as_node(:rhs, val[0], val[2])
-                }
+      | lhs equal rhs SEMI {
+          result = @builder.stmt(val[0, 3])
+        }
+  lhs: ident
+      | ident ident {
+          name = val[1].updated(:name)
+          result = @builder.variable([val[0], name])
+        }
+  rhs:  assigned_val {
+          result = @builder.terminal_node(:rhs, val[0])
+        }
+      | call_target L_RB assigned_val R_RB {
+          result = @builder.join_as_node(:rhs, val[0], val[3])
+        }
   call_target: ident
              | ident dot_idents {
                result = @builder.join_as_node(:call_target, *val)
@@ -93,9 +104,9 @@ rule
   dot_ident: DOT ident {
               result = @builder.join_as_node(:dot_ident, *val)
             }
-  argments: S_LITERAL
   assigned_val: S_LITERAL
             | N_LITERAL
+            | ident
   class: CLASS {
         result = @builder.terminal_node(:class, val[0])
        }
@@ -125,5 +136,8 @@ rule
        }
        | SHARING {
         result = @builder.terminal_node(:sharing, val[0])
+       }
+  equal: EQUAL {
+        result = @builder.terminal_node(:equal, val[0])
        }
 end
