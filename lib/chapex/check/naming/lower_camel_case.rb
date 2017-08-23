@@ -9,11 +9,7 @@ module Chapex
 
         def on_field(node)
           return if const_field?(node)
-          check_node = node.find(:name)
-          field_name = check_node.value
-          return if field_name =~ /^[a-z]\w*/
-
-          add_violation(check_node.location, field_name)
+          check_name_pattern(node, /^[a-z]\w*/)
         end
       end
     end
