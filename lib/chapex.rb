@@ -15,8 +15,11 @@ require 'chapex/ast/builder'
 require 'chapex/check/base'
 require 'chapex/check/violation'
 
+require 'chapex/check/mixin/field_concern'
+
 require 'chapex/check/naming/lower_camel_case'
 require 'chapex/check/naming/upper_camel_case'
+require 'chapex/check/naming/upper_snake_case'
 
 require 'chapex/check/no_tab_character'
 require 'chapex/check/indentation_width'

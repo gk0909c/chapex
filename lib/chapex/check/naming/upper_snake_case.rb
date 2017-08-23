@@ -2,16 +2,16 @@ module Chapex
   module Check
     module Naming
       # check lower camel case
-      class LowerCamelCase < Base
+      class UpperSnakeCase < Base
         include FieldConcern
 
-        MSG = 'field name "%s" should be lower camelcase'.freeze
+        MSG = 'constant field name "%s" should be upper snake case'.freeze
 
         def on_field(node)
-          return if const_field?(node)
+          return unless const_field?(node)
           check_node = node.find(:name)
           field_name = check_node.value
-          return if field_name =~ /^[a-z]\w*/
+          return if field_name =~ /^[A-Z][A-Z0-9_]*/
 
           add_violation(check_node.location, field_name)
         end

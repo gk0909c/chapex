@@ -1,5 +1,5 @@
 public with sharing class Leo {
-    public final static String val = 'TEST';
+    public final static String CONST_VAL = 'TEST';
     private String str2;
     Integer int1;
 
