@@ -32,4 +32,20 @@ class NodeTest < Minitest::Test
 
     assert_nil(node.find(:class_field))
   end
+
+  def test_has_when_exists
+    class_body = Chapex::Ast::Node.new(:class_body, [], row: 1, column: 3)
+    class_dec = Chapex::Ast::Node.new(:class_dec, [], row: 1, column: 1)
+    node = Chapex::Ast::Node.new(:program, ['abc', class_dec, class_body])
+
+    assert(node.has?(:class_dec))
+  end
+
+  def test_has_when_not_exists
+    class_body = Chapex::Ast::Node.new(:class_body, [], row: 1, column: 3)
+    class_dec = Chapex::Ast::Node.new(:class_dec, [], row: 1, column: 1)
+    node = Chapex::Ast::Node.new(:program, ['abc', class_dec, class_body])
+
+    refute(node.has?(:class_dummy))
+  end
 end

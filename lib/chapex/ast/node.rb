@@ -57,6 +57,12 @@ module Chapex
         @children.find { |c| chapex_ast_node?(c) && c.type == type }
       end
 
+      # check whether node has specified type child
+      def has?(type)
+        child = find(type)
+        !child.nil?
+      end
+
       protected
 
       def chapex_ast_node?(c)
