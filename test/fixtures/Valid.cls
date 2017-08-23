@@ -7,5 +7,7 @@ public class Leo {
     public void getMethod() {
         String mes = 'abc';
         System.debug(mes);
+        str2 = mes;
+        System.debug(str2);
     }
 }

@@ -49,7 +49,13 @@ class ParserTest < Minitest::Test
             (equal "=")
             (rhs "'abc'"))
           (stmt
-            (rhs "System.debug(mes)")))))))
+            (rhs "System.debug(mes)"))
+          (stmt
+            (ident "str2")
+            (equal "=")
+            (rhs "mes"))
+          (stmt
+            (rhs "System.debug(str2)")))))))
     HERE
     # remove last line feed
     expected.chomp!

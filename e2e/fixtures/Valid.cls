@@ -6,5 +6,7 @@ public with sharing class Leo {
     public void getMethod1() {
         String message = 'abbb';
         System.debug(message);
+        str2 = message;
+        System.debug(str2);
     }
 }

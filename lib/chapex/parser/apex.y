@@ -80,7 +80,9 @@ rule
       | lhs equal rhs SEMI {
           result = @builder.stmt(val[0, 3])
         }
-  lhs: ident
+  lhs: ident {
+          result = val[0]
+        }
       | ident ident {
           name = val[1].updated(:name)
           result = @builder.variable([val[0], name])
@@ -106,7 +108,7 @@ rule
             }
   assigned_val: S_LITERAL
             | N_LITERAL
-            | ident
+            | IDENT
   class: CLASS {
         result = @builder.terminal_node(:class, val[0])
        }
