@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ParserTest < Minitest::Test
+class ApexValidParaseTest < Minitest::Test
   def test_parse
     source = Chapex::Source.new("#{Dir.pwd}/test/fixtures/Valid.cls")
     parser = Chapex::Parser::Apex.new(source)
