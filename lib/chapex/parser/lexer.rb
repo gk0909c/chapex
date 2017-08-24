@@ -20,6 +20,7 @@ module Chapex
         else
         true
         false
+        for
       ].freeze
       KEYWORD = /\b(#{KEYWORDS.join('|')})\b/
       SHARING = /\b(with|without)\b\s\bsharing\b/
@@ -35,8 +36,19 @@ module Chapex
         Lexicality.new(/\./, :DOT, :emit),
         Lexicality.new(/,/, :COMMA, :emit),
         Lexicality.new(/==/, :DBL_EQUAL, :emit),
+        Lexicality.new(/<=/, :GREATER_EQUAL, :emit),
+        Lexicality.new(/</, :GREATER, :emit),
+        Lexicality.new(/>=/, :LESS_EQUAL, :emit),
+        Lexicality.new(/>/, :LESS, :emit),
         Lexicality.new(/=/, :EQUAL, :emit),
         Lexicality.new(/;/, :SEMI, :emit),
+        Lexicality.new(/\+\+/, :INCREAMENT, :emit),
+        Lexicality.new(/--/, :DECREAMENT, :emit),
+        Lexicality.new(/\+/, :PLUS, :emit),
+        Lexicality.new(/-/, :MINUS, :emit),
+        Lexicality.new(/\*/, :MULTIPLY, :emit),
+        Lexicality.new(%r{\/}, :DIVIDE, :emit),
+        Lexicality.new(/%/, :REMAINDER, :emit),
         Lexicality.new(/'.*?'/, :S_LITERAL, :emit),
         Lexicality.new(/[0-9]+/, :N_LITERAL, :emit),
         Lexicality.new(/\b\w+\b/, :IDENT, :emit),

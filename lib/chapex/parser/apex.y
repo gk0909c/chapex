@@ -130,6 +130,19 @@ rule
   comparison_operator: DBL_EQUAL {
                         result = @builder.terminal_node(:operator, val[0])
                       }
+                      | GREATER_EQUAL  {
+                        result = @builder.terminal_node(:operator, val[0])
+                      }
+                      | GREATER  {
+                        result = @builder.terminal_node(:operator, val[0])
+                      }
+                      | LESS_EQUAL  {
+                        result = @builder.terminal_node(:operator, val[0])
+                      }
+                      | LESS  {
+                        result = @builder.terminal_node(:operator, val[0])
+                      }
+
   lhs: ident {
           result = val[0]
         }
