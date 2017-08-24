@@ -98,18 +98,35 @@ rule
       | else_stmt {
         result = val[0]
       }
+      | for_stmt {
+        result = val[0]
+      }
   if_stmt: IF L_RB condition R_RB L_CB stmts R_CB {
-            if_body = val[5].updated(:if_body)
-            result = @builder.if_stmt([val[2], if_body])
-  }
+              if_body = val[5].updated(:if_body)
+              result = @builder.if_stmt([val[2], if_body])
+            }
   else_if_stmt: ELSE IF L_RB condition R_RB L_CB stmts R_CB {
-            if_body = val[6].updated(:if_body)
-            result = @builder.else_if_stmt([val[3], if_body])
-  }
+              if_body = val[6].updated(:if_body)
+              result = @builder.else_if_stmt([val[3], if_body])
+            }
   else_stmt: ELSE L_CB stmts R_CB {
-            else_body = val[2].updated(:else_body)
-            result = @builder.else_stmt([else_body])
-  }
+              else_body = val[2].updated(:else_body)
+              result = @builder.else_stmt([else_body])
+            }
+  for_stmt: FOR L_RB for_init SEMI condition SEMI increament R_RB L_CB stmts R_CB {
+              body = val[9].updated(:for_body)
+              result = @builder.for_stmt([val[2], val[4], val[6], body])
+            }
+  for_init: lhs equal expr {
+              rhs = @builder.terminal_node(:rhs, val[2])  
+              result = @builder.for_init([val[0], val[1], rhs])
+            }
+  increament: ident INCREAMENT {
+              result = @builder.join_as_node(:increament, val[0], val[1])
+            }
+            | ident DECREAMENT {
+              result = @builder.join_as_node(:increament, val[0], val[1])
+            }
   condition: TRUE {
               node = @builder.terminal_node(:true, val[0])
               result = @builder.condition([node])
