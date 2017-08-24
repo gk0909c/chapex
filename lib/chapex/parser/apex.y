@@ -92,16 +92,40 @@ rule
       | if_stmt {
         result = val[0]
       }
+      | else_if_stmt {
+        result = val[0]
+      }
+      | else_stmt {
+        result = val[0]
+      }
   if_stmt: IF L_RB condition R_RB L_CB stmts R_CB {
             if_body = val[5].updated(:if_body)
             result = @builder.if_stmt([val[2], if_body])
   }
-  condition: TRUE
-            | FALSE
+  else_if_stmt: ELSE IF L_RB condition R_RB L_CB stmts R_CB {
+            if_body = val[6].updated(:if_body)
+            result = @builder.else_if_stmt([val[3], if_body])
+  }
+  else_stmt: ELSE L_CB stmts R_CB {
+            else_body = val[2].updated(:else_body)
+            result = @builder.else_stmt([else_body])
+  }
+  condition: TRUE {
+              node = @builder.terminal_node(:true, val[0])
+              result = @builder.condition([node])
+            } 
+            | FALSE {
+              node = @builder.terminal_node(:false, val[0])
+              result = @builder.condition([node])
+            }
             | expr comparison_operator expr {
               lhs = @builder.terminal_node(:lhs, val[0])
               rhs = @builder.terminal_node(:rhs, val[2])
               result = @builder.condition([lhs, val[1], rhs])
+            }
+            | rhs {
+              stmt = val[0].updated(:stmt)
+              result = @builder.condition([stmt])
             }
   comparison_operator: DBL_EQUAL {
                         result = @builder.terminal_node(:operator, val[0])
@@ -143,7 +167,8 @@ rule
               name = val[1].updated(:name)
               result = @builder.method_arg([val[0], name]) 
             }
-  args: expr
+  args:
+      | expr
       | args COMMA expr
   expr: S_LITERAL
       | N_LITERAL

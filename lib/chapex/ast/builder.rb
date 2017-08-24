@@ -5,7 +5,8 @@ module Chapex
       NODE_TYPES = %i[
         program class_dec class_body field
         method method_args method_arg method_body
-        stmts stmt if_stmt condition variable
+        stmts stmt if_stmt else_if_stmt else_stmt
+        condition variable
       ].freeze
 
       NODE_TYPES.each do |t|

@@ -46,7 +46,17 @@ class ApexIfParseTest < Minitest::Test
                 (equal "=")
                 (rhs "abc.substring(1, 3)"))
               (stmt
-                (rhs "System.debug(a)")))))))))
+                (rhs "System.debug(a)"))))
+          (else-if-stmt
+            (condition
+              (stmt "def.exists()"))
+            (if-body
+              (stmt
+                (rhs "System.debug('do else if')"))))
+          (else-stmt
+            (else-body
+              (stmt
+                (rhs "System.debug('do else')")))))))))
     HERE
     expected.chomp!
 
