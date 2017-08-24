@@ -24,7 +24,7 @@ class ApexForParseTest < Minitest::Test
         (name "forMethod")
         (method-args
           (method-arg
-            (ident "String")
+            (ident "List<String>")
             (name "def")))
         (method-body
           (for-stmt

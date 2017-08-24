@@ -27,7 +27,7 @@ rule
             children = val[1] ? val[0] << val[1] : val[0]
             result =  @builder.field(children)
           }
-  field_dec: scope member_modifier ident ident {
+  field_dec: scope member_modifier type ident {
             name_node = val[3].updated(:name)
             result = [val[0]].concat(val[1]) << val[2] << name_node
           }
@@ -37,12 +37,12 @@ rule
               | EQUAL assigned_val {
                 result = @builder.join_as_node(:assign, *val)
               }
-  method: scope member_modifier ident ident L_RB R_RB L_CB method_body R_CB {
+  method: scope member_modifier type ident L_RB R_RB L_CB method_body R_CB {
             name = val[3].updated(:name)
             children = [val[0]].concat(val[1]) << val[2] << name << val[7]
             result =  @builder.method(children)
           }
-        | scope member_modifier ident ident L_RB method_args R_RB L_CB method_body R_CB {
+        | scope member_modifier type ident L_RB method_args R_RB L_CB method_body R_CB {
             name = val[3].updated(:name)
             children = [val[0]].concat(val[1]) << val[2] << name << val[5] << val[8]
             result =  @builder.method(children)
@@ -118,7 +118,7 @@ rule
               result = @builder.for_stmt([val[2], val[4], val[6], body])
             }
   for_init: lhs equal expr {
-              rhs = @builder.terminal_node(:rhs, val[2])  
+              rhs = val[2].updated(:rhs)  
               result = @builder.for_init([val[0], val[1], rhs])
             }
   increament: ident INCREAMENT {
@@ -136,8 +136,8 @@ rule
               result = @builder.condition([node])
             }
             | expr comparison_operator expr {
-              lhs = @builder.terminal_node(:lhs, val[0])
-              rhs = @builder.terminal_node(:rhs, val[2])
+              lhs = val[0].updated(:lhs)
+              rhs = val[2].updated(:rhs)
               result = @builder.condition([lhs, val[1], rhs])
             }
             | rhs {
@@ -163,7 +163,7 @@ rule
   lhs: ident {
           result = val[0]
         }
-      | ident ident {
+      | type ident {
           name = val[1].updated(:name)
           result = @builder.variable([val[0], name])
         }
@@ -193,16 +193,22 @@ rule
             | method_args COMMA method_arg {
               result = val[0] << result[2]
             }
-  method_arg: ident ident {
+  method_arg: type ident {
               name = val[1].updated(:name)
               result = @builder.method_arg([val[0], name]) 
             }
+  type: ident {
+          result = val[0]
+        }
+        | ident GREATER ident LESS {
+          result = @builder.join_as_node(:ident, *val)
+        }
   args:
       | expr
       | args COMMA expr
-  expr: S_LITERAL
-      | N_LITERAL
-      | IDENT
+  expr: s_literal
+      | n_literal
+      | ident
   class: CLASS {
         result = @builder.terminal_node(:class, val[0])
        }
@@ -213,6 +219,12 @@ rule
         result = @builder.terminal_node(:scope, val[0])
        }
   ident: IDENT {
+        result = @builder.terminal_node(:ident, val[0])
+      }
+  s_literal: S_LITERAL {
+        result = @builder.terminal_node(:ident, val[0])
+      }
+  n_literal: N_LITERAL {
         result = @builder.terminal_node(:ident, val[0])
       }
   virtual: {
