@@ -41,7 +41,14 @@ class ApexForParseTest < Minitest::Test
             (increament "i++")
             (for-body
               (stmt
-                (rhs "System.debug(i)")))))))))
+                (rhs "System.debug(i)"))))
+          (for-each-stmt
+            (ident "String")
+            (name "d")
+            (ident "def")
+            (for-body
+              (stmt
+                (rhs "System.debug(d)")))))))))
     HERE
     expected.chomp!
 

@@ -3,5 +3,8 @@ public class ForParsing {
         for (Integer i = 0; i < 10; i++) {
             System.debug(i);
         }
+        for (String d : def) {
+            System.debug(d);
+        }
     }
 }

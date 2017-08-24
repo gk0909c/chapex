@@ -42,6 +42,7 @@ module Chapex
         Lexicality.new(/>/, :LESS, :emit),
         Lexicality.new(/=/, :EQUAL, :emit),
         Lexicality.new(/;/, :SEMI, :emit),
+        Lexicality.new(/:/, :COLON, :emit),
         Lexicality.new(/\+\+/, :INCREAMENT, :emit),
         Lexicality.new(/--/, :DECREAMENT, :emit),
         Lexicality.new(/\+/, :PLUS, :emit),

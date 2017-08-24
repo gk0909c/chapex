@@ -98,9 +98,8 @@ rule
       | else_stmt {
         result = val[0]
       }
-      | for_stmt {
-        result = val[0]
-      }
+      | for_stmt
+      | for_each_stmt
   if_stmt: IF L_RB condition R_RB L_CB stmts R_CB {
               if_body = val[5].updated(:if_body)
               result = @builder.if_stmt([val[2], if_body])
@@ -126,6 +125,11 @@ rule
             }
             | ident DECREAMENT {
               result = @builder.join_as_node(:increament, val[0], val[1])
+            }
+  for_each_stmt: FOR L_RB type ident COLON ident R_RB L_CB stmts R_CB {
+              name = val[3].updated(:name)
+              body = val[8].updated(:for_body)
+              result = @builder.for_each_stmt([val[2], name, val[5], body])
             }
   condition: TRUE {
               node = @builder.terminal_node(:true, val[0])

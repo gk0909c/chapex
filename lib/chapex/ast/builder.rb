@@ -6,7 +6,7 @@ module Chapex
         program class_dec class_body field
         method method_args method_arg method_body
         stmts stmt if_stmt else_if_stmt else_stmt
-        for_stmt for_init
+        for_stmt for_init for_each_stmt
         condition variable
       ].freeze
 
