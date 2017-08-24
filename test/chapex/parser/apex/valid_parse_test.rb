@@ -40,7 +40,7 @@ class ApexValidParaseTest < Minitest::Test
       (method
         (scope "public")
         (ident "void")
-        (ident "getMethod")
+        (name "getMethod")
         (method-body
           (stmt
             (variable

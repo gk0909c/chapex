@@ -7,7 +7,21 @@ module Chapex
       attr_reader :tokens
 
       SCOPE = /\b(public|protected|private|global)\b/
-      KEYWORD = /\b(virtual|abstract|class|implements|extends|final|override|static)\b/
+      KEYWORDS = %i[
+        virtual
+        abstract
+        class
+        implements
+        extends
+        final
+        override
+        static
+        if
+        else
+        true
+        false
+      ].freeze
+      KEYWORD = /\b(#{KEYWORDS.join('|')})\b/
       SHARING = /\b(with|without)\b\s\bsharing\b/
 
       EXPRESSIONS = [
@@ -19,6 +33,8 @@ module Chapex
         Lexicality.new(/\(/, :L_RB, :emit),
         Lexicality.new(/\)/, :R_RB, :emit),
         Lexicality.new(/\./, :DOT, :emit),
+        Lexicality.new(/,/, :COMMA, :emit),
+        Lexicality.new(/==/, :DBL_EQUAL, :emit),
         Lexicality.new(/=/, :EQUAL, :emit),
         Lexicality.new(/;/, :SEMI, :emit),
         Lexicality.new(/'.*?'/, :S_LITERAL, :emit),

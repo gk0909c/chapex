@@ -38,7 +38,13 @@ rule
                 result = @builder.join_as_node(:assign, *val)
               }
   method: scope member_modifier ident ident L_RB R_RB L_CB method_body R_CB {
-            children = [val[0]].concat(val[1]).concat(val[2, 2]) << val[7]
+            name = val[3].updated(:name)
+            children = [val[0]].concat(val[1]) << val[2] << name << val[7]
+            result =  @builder.method(children)
+          }
+        | scope member_modifier ident ident L_RB method_args R_RB L_CB method_body R_CB {
+            name = val[3].updated(:name)
+            children = [val[0]].concat(val[1]) << val[2] << name << val[5] << val[8]
             result =  @builder.method(children)
           }
   member_modifier: {
@@ -68,10 +74,13 @@ rule
                     static = @builder.terminal_node(:static, val[1])
                     result = [override, static]
                   }
-  method_body: stmt {
-          result = @builder.method_body([val[0]])
+  method_body: stmts {
+          result = val[0].updated(:method_body)
           }
-        | method_body stmt {
+  stmts: stmt {
+          result = @builder.stmts([val[0]])
+        }
+        | stmts stmt {
           result = val[0] << val[1]
         }
   stmt: rhs SEMI {
@@ -80,6 +89,23 @@ rule
       | lhs equal rhs SEMI {
           result = @builder.stmt(val[0, 3])
         }
+      | if_stmt {
+        result = val[0]
+      }
+  if_stmt: IF L_RB condition R_RB L_CB stmts R_CB {
+            if_body = val[5].updated(:if_body)
+            result = @builder.if_stmt([val[2], if_body])
+  }
+  condition: TRUE
+            | FALSE
+            | expr comparison_operator expr {
+              lhs = @builder.terminal_node(:lhs, val[0])
+              rhs = @builder.terminal_node(:rhs, val[2])
+              result = @builder.condition([lhs, val[1], rhs])
+            }
+  comparison_operator: DBL_EQUAL {
+                        result = @builder.terminal_node(:operator, val[0])
+                      }
   lhs: ident {
           result = val[0]
         }
@@ -90,7 +116,7 @@ rule
   rhs:  assigned_val {
           result = @builder.terminal_node(:rhs, val[0])
         }
-      | call_target L_RB assigned_val R_RB {
+      | call_target L_RB args R_RB {
           result = @builder.join_as_node(:rhs, val[0], val[3])
         }
   call_target: ident
@@ -106,9 +132,22 @@ rule
   dot_ident: DOT ident {
               result = @builder.join_as_node(:dot_ident, *val)
             }
-  assigned_val: S_LITERAL
-            | N_LITERAL
-            | IDENT
+  assigned_val: expr
+  method_args: method_arg {
+              result = @builder.method_args([val[0]])
+            }
+            | method_args COMMA method_arg {
+              result = val[0] << result[2]
+            }
+  method_arg: ident ident {
+              name = val[1].updated(:name)
+              result = @builder.method_arg([val[0], name]) 
+            }
+  args: expr
+      | args COMMA expr
+  expr: S_LITERAL
+      | N_LITERAL
+      | IDENT
   class: CLASS {
         result = @builder.terminal_node(:class, val[0])
        }
