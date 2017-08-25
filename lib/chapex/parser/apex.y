@@ -172,7 +172,7 @@ rule
           result = @builder.variable([val[0], name])
         }
   rhs:  assigned_val {
-          result = @builder.terminal_node(:rhs, val[0])
+          result = val[0].updated(:rhs)
         }
       | call_target L_RB args R_RB {
           result = @builder.join_as_node(:rhs, val[0], val[3])
@@ -210,8 +210,7 @@ rule
   args:
       | expr
       | args COMMA expr
-  expr: s_literal
-      | n_literal
+  expr: literal
       | ident
   class: CLASS {
         result = @builder.terminal_node(:class, val[0])
@@ -225,12 +224,12 @@ rule
   ident: IDENT {
         result = @builder.terminal_node(:ident, val[0])
       }
-  s_literal: S_LITERAL {
-        result = @builder.terminal_node(:ident, val[0])
-      }
-  n_literal: N_LITERAL {
-        result = @builder.terminal_node(:ident, val[0])
-      }
+  literal: S_LITERAL {
+          result = @builder.terminal_node(:s_literal, val[0])
+        }
+      | N_LITERAL {
+          result = @builder.terminal_node(:n_literal, val[0])
+        }
   virtual: {
         result = @builder.terminal_node(:virtual, nil)
        }
