@@ -12,9 +12,7 @@ class ApexValidParaseTest < Minitest::Test
 (program
   (class-dec
     (scope "public")
-    (virtual)
-    (abstract)
-    (sharing)
+    (abstract "abstract")
     (class "class")
     (ident "Leo")
     (class-body

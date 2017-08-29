@@ -12,9 +12,6 @@ class ApexIfParseTest < Minitest::Test
 (program
   (class-dec
     (scope "public")
-    (virtual)
-    (abstract)
-    (sharing)
     (class "class")
     (ident "IfParsing")
     (class-body

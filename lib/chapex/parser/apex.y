@@ -3,8 +3,8 @@ rule
   program: class_dec {
     result = @builder.program([val[0]])
   }
-  class_dec: scope virtual abstract sharing class ident L_CB class_body implemation inherit R_CB {
-    children = val[0, 6] << val[7]
+  class_dec: scope class_modifier class ident L_CB class_body implemation inherit R_CB {
+    children = [val[0]].concat(val[1]).concat(val[2, 2]) << val[5]
     result = @builder.class_dec(children)
   }
   implemation:
@@ -47,6 +47,28 @@ rule
             children = [val[0]].concat(val[1]) << val[2] << name << val[5] << val[8]
             result =  @builder.method(children)
           }
+  class_modifier: {
+                    result = []
+                  }
+                  | VIRTUAL {
+                    result = [@builder.terminal_node(:virtual, val[0])]
+                  }
+                  | ABSTRACT {
+                    result = [@builder.terminal_node(:abstract, val[0])]
+                  }
+                  | SHARING {
+                    result = [@builder.terminal_node(:sharing, val[0])]
+                  }
+                  | VIRTUAL SHARING {
+                    virtual = @builder.terminal_node(:virtual, val[0])
+                    sharing = @builder.terminal_node(:sharing, val[1])
+                    result = [virtual, sharing]
+                  }
+                  | ABSTRACT SHARING {
+                    abstract = @builder.terminal_node(:virtual, val[0])
+                    sharing = @builder.terminal_node(:sharing, val[1])
+                    result = [abstract, sharing]
+                  }
   member_modifier: {
                     result = []
                   }
@@ -230,24 +252,6 @@ rule
       | N_LITERAL {
           result = @builder.terminal_node(:n_literal, val[0])
         }
-  virtual: {
-        result = @builder.terminal_node(:virtual, nil)
-       }
-       | VIRTUAL {
-        result = @builder.terminal_node(:virtual, val[0])
-       }
-  abstract: {
-        result = @builder.terminal_node(:abstract, nil)
-       }
-       | ABSTRACT {
-        result = @builder.terminal_node(:abstract, val[0])
-       }
-  sharing: {
-        result = @builder.terminal_node(:sharing, nil)
-       }
-       | SHARING {
-        result = @builder.terminal_node(:sharing, val[0])
-       }
   equal: EQUAL {
         result = @builder.terminal_node(:equal, val[0])
        }

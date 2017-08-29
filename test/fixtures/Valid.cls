@@ -1,4 +1,4 @@
-public class Leo {
+public abstract class Leo {
     public final static String CO_V;
     private String str2;
     Integer int1;
