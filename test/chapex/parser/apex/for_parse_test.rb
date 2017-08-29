@@ -13,7 +13,7 @@ class ApexForParseTest < Minitest::Test
   (class-dec
     (scope "public")
     (class "class")
-    (ident "ForParsing")
+    (name "ForParsing")
     (class-body
       (method
         (scope "public")

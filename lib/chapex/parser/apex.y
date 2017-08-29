@@ -4,7 +4,8 @@ rule
     result = @builder.program([val[0]])
   }
   class_dec: scope class_modifier class ident L_CB class_body implemation inherit R_CB {
-    children = [val[0]].concat(val[1]).concat(val[2, 2]) << val[5]
+    name = val[3].updated(:name)
+    children = [val[0]].concat(val[1]) << val[2] << name << val[5]
     result = @builder.class_dec(children)
   }
   implemation:

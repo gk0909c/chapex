@@ -6,10 +6,10 @@ class UpperCamelCaseTest < Minitest::Test
     @target = MiniTest::Mock.new
     @checker = Chapex::Check::Naming::UpperCamelCase.new
 
-    @node.expect(:[], @target, [5])
+    @node.expect(:find, @target, [:name])
   end
 
-  def test_on_field_when_valid
+  def test_on_class_when_valid
     @target.expect(:value, 'ValidName')
 
     @checker.on_class_dec(@node)
@@ -17,7 +17,7 @@ class UpperCamelCaseTest < Minitest::Test
     assert_equal(0, @checker.violations.size)
   end
 
-  def test_on_field_when_invalid
+  def test_on_class_when_invalid
     @target.expect(:value, 'invalidName')
     @target.expect(:location, Chapex::SourceLocation.new(1, 2))
 

@@ -14,7 +14,7 @@ class ApexValidParaseTest < Minitest::Test
     (scope "public")
     (abstract "abstract")
     (class "class")
-    (ident "Leo")
+    (name "Leo")
     (class-body
       (field
         (scope "public")
