@@ -10,10 +10,12 @@ rule
   }
   implemation:
             | IMPLEMENTS ident {
-              result = @builder.terminal_node(:implements, val[0])
+              result = @builder.terminal_node(:implements, val[1])
             }
   inherit:
-            | EXTENDS ident
+            | EXTENDS ident {
+              result = @builder.terminal_node(:extends, val[1])
+            }
   class_body:
           | members
   members: member {
@@ -35,7 +37,7 @@ rule
   field_assign: {
                   result = nil
               }
-              | EQUAL assigned_val {
+              | EQUAL expr {
                 result = @builder.join_as_node(:assign, *val)
               }
   method: scope member_modifier type ident L_RB R_RB L_CB method_body R_CB {
@@ -194,26 +196,21 @@ rule
           name = val[1].updated(:name)
           result = @builder.variable([val[0], name])
         }
-  rhs:  assigned_val {
+  rhs:  expr {
           result = val[0].updated(:rhs)
         }
-      | call_target L_RB args R_RB {
-          result = @builder.join_as_node(:rhs, val[0], val[3])
+      | receiver DOT message L_RB args R_RB {
+          result = @builder.join_as_node(:rhs, val[0], val[5])
         }
-  call_target: ident
-             | ident dot_idents {
-               result = @builder.join_as_node(:call_target, *val)
-             }
-  dot_idents:  dot_ident {
-              result = val[0]
+  receiver: ident {
+              result = val[0].updated(:receiver)
             }
-            | dot_idents dot_ident {
-              result = val[0] << val[1]
+          | receiver DOT ident {
+              result = @builder.join_as_node(:receiver, *val)
             }
-  dot_ident: DOT ident {
-              result = @builder.join_as_node(:dot_ident, *val)
+  message : ident {
+              result = val[0].updated(:message)
             }
-  assigned_val: expr
   method_args: method_arg {
               result = @builder.method_args([val[0]])
             }
