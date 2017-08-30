@@ -222,10 +222,10 @@ rule
               result = @builder.method_arg([val[0], name]) 
             }
   type: ident {
-          result = val[0]
+          result = val[0].updated(:type)
         }
         | ident GREATER ident LESS {
-          result = @builder.join_as_node(:ident, *val)
+          result = @builder.join_as_node(:type, *val)
         }
   args:
       | expr

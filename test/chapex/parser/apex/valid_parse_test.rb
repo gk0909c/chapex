@@ -20,29 +20,29 @@ class ApexValidParaseTest < Minitest::Test
         (scope "public")
         (final "final")
         (static "static")
-        (ident "String")
+        (type "String")
         (name "CO_V"))
       (field
         (scope "private")
-        (ident "String")
+        (type "String")
         (name "str2"))
       (field
         (scope)
-        (ident "Integer")
+        (type "Integer")
         (name "int1"))
       (field
         (scope "private")
-        (ident "Integer")
+        (type "Integer")
         (name "int2")
         (assign "= 3"))
       (method
         (scope "public")
-        (ident "void")
+        (type "void")
         (name "getMethod")
         (method-body
           (stmt
             (variable
-              (ident "String")
+              (type "String")
               (name "mes"))
             (equal "=")
             (rhs "'abc'"))

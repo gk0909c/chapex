@@ -17,16 +17,16 @@ class ApexIfParseTest < Minitest::Test
     (class-body
       (method
         (scope "public")
-        (ident "void")
+        (type "void")
         (name "ifMethod")
         (method-args
           (method-arg
-            (ident "String")
+            (type "String")
             (name "def")))
         (method-body
           (stmt
             (variable
-              (ident "String")
+              (type "String")
               (name "abc"))
             (equal "=")
             (rhs "'def'"))
@@ -38,7 +38,7 @@ class ApexIfParseTest < Minitest::Test
             (if-body
               (stmt
                 (variable
-                  (ident "String")
+                  (type "String")
                   (name "a"))
                 (equal "=")
                 (rhs "abc.substring(1, 3)"))

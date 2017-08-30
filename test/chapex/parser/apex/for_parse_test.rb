@@ -17,17 +17,17 @@ class ApexForParseTest < Minitest::Test
     (class-body
       (method
         (scope "public")
-        (ident "void")
+        (type "void")
         (name "forMethod")
         (method-args
           (method-arg
-            (ident "List<String>")
+            (type "List<String>")
             (name "def")))
         (method-body
           (for-stmt
             (for-init
               (variable
-                (ident "Integer")
+                (type "Integer")
                 (name "i"))
               (equal "=")
               (rhs "0"))
@@ -40,7 +40,7 @@ class ApexForParseTest < Minitest::Test
               (stmt
                 (rhs "System.debug(i)"))))
           (for-each-stmt
-            (ident "String")
+            (type "String")
             (name "d")
             (ident "def")
             (for-body
