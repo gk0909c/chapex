@@ -114,17 +114,13 @@ rule
       | lhs equal rhs SEMI {
           result = @builder.stmt(val[0, 3])
         }
-      | if_stmt {
-        result = val[0]
-      }
-      | else_if_stmt {
-        result = val[0]
-      }
-      | else_stmt {
-        result = val[0]
-      }
+      | if_stmt
+      | else_if_stmt
+      | else_stmt
       | for_stmt
       | for_each_stmt
+      | do_while_stmt
+      | while_stmt
   if_stmt: IF L_RB condition R_RB L_CB stmts R_CB {
               if_body = val[5].updated(:if_body)
               result = @builder.if_stmt([val[2], if_body])
@@ -155,6 +151,14 @@ rule
               name = val[3].updated(:name)
               body = val[8].updated(:for_body)
               result = @builder.for_each_stmt([val[2], name, val[5], body])
+            }
+  do_while_stmt: DO L_CB stmts R_CB WHILE L_RB condition R_RB {
+              body = val[2].updated(:do_body)
+              result = @builder.do_while_stmt([body, val[6]])
+            }
+  while_stmt: WHILE L_RB condition R_RB L_CB stmts R_CB {
+              body = val[5].updated(:while_body)
+              result = @builder.while_stmt([val[2], body])
             }
   condition: TRUE {
               node = @builder.terminal_node(:true, val[0])
@@ -199,6 +203,9 @@ rule
   rhs:  expr {
           result = val[0].updated(:rhs)
         }
+      | increament {
+          result = val[0].updated(:rhs)
+      }
       | receiver DOT message L_RB args R_RB {
           result = @builder.join_as_node(:rhs, val[0], val[5])
         }

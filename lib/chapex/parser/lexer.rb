@@ -21,6 +21,8 @@ module Chapex
         true
         false
         for
+        do
+        while
       ].freeze
       KEYWORD = /\b(#{KEYWORDS.join('|')})\b/
       SHARING = /\b(with|without)\b\s\bsharing\b/

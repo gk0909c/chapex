@@ -7,6 +7,7 @@ module Chapex
         method method_args method_arg method_body
         stmts stmt if_stmt else_if_stmt else_stmt
         for_stmt for_init for_each_stmt
+        do_while_stmt while_stmt
         condition variable
       ].freeze
 
