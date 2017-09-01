@@ -6,7 +6,7 @@ class ValidFileTest < Minitest::Test
     reporter = Chapex::Reporter::StdOut.new
     cli = Chapex::Cli.new
 
-    assert_output('') do
+    assert_silent do
       cli.run('e2e/fixtures/Valid.cls', reporter)
     end
   end

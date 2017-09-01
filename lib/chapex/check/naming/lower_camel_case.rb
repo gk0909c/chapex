@@ -11,6 +11,9 @@ module Chapex
           return if const_field?(node)
           check_name_pattern(node, /^[a-z]\w*/)
         end
+        alias on_method :on_field
+        alias on_variable :on_field
+        alias on_method_arg :on_field
       end
     end
   end
