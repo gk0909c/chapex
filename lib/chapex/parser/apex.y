@@ -37,7 +37,7 @@ rule
   field_assign: {
                   result = nil
               }
-              | EQUAL expr {
+              | EQUAL rhs {
                 result = @builder.join_as_node(:assign, *val)
               }
   method: scope member_modifier type ident L_RB R_RB L_CB method_body R_CB {
