@@ -55,6 +55,7 @@ module Chapex
         Lexicality.new(/'.*?'/, :S_LITERAL, :emit),
         Lexicality.new(/[0-9]+/, :N_LITERAL, :emit),
         Lexicality.new(/\b\w+\b/, :IDENT, :emit),
+        Lexicality.new(/\[.+?\]/m, :SOQL, :emit),
         Lexicality.new(/\s+?/)
       ].freeze
 

@@ -8,5 +8,10 @@ public with sharing class Leo {
         System.debug(message);
         str2 = message;
         System.debug(str2);
+
+        List<Obj__c> list = [SELECT
+                                Id, Name,
+                            FROM
+                                Obj__c];
     }
 }

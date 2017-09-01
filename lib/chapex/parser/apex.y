@@ -209,6 +209,7 @@ rule
       | receiver DOT message L_RB args R_RB {
           result = @builder.join_as_node(:rhs, val[0], val[5])
         }
+      | soql
   receiver: ident {
               result = val[0].updated(:receiver)
             }
@@ -260,4 +261,8 @@ rule
   equal: EQUAL {
         result = @builder.terminal_node(:equal, val[0])
        }
+  soql: SOQL {
+        soql = @builder.terminal_node(:soql, val[0])
+        result = soql.updated(nil, ['soql'])
+      }
 end
