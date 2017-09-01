@@ -19,6 +19,11 @@ module Chapex
       def next_token
         @tokens.shift
       end
+
+      def on_error(error_token_id, error_value, value_stack)
+        row, column = @source.position(error_value.token_start)
+        puts "skip error '#{error_value.value}' at #{row}:#{column}"
+      end
     end
   end
 end

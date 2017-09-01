@@ -30,6 +30,10 @@ rule
             children = val[1] ? val[0] << val[1] : val[0]
             result =  @builder.field(children)
           }
+       | field_dec error R_CB {
+          # skip field property
+          result =  @builder.field(val[0])
+       }
   field_dec: scope member_modifier type ident {
             name_node = val[3].updated(:name)
             result = [val[0]].concat(val[1]) << val[2] << name_node
